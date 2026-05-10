@@ -8,7 +8,7 @@ package app;
  *
  * @author sever
  */
-public class GIF {
+public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
