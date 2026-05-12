@@ -1,13 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author sever
- */
 public class Usuario {
+    private int Id;
+    private String Nome;
+    private String Senha;    
+
+    public Usuario(int Id, String Nome, String Senha){
+        this.Id = Id;
+        this.Nome = Nome;
+        this.Senha = Senha;
+    }
+
+    public Usuario(String Nome, String Senha){
+        this.Nome = Nome;
+        this.Senha = Senha;
+    }
     
+    public int getId() {
+        return Id;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public String getSenha() {
+        return Senha;
+    }
 }

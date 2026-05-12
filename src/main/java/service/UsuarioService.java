@@ -1,13 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package service;
 
-/**
- *
- * @author sever
- */
+import dao.*;
+import model.*;
+
+
 public class UsuarioService {
-    
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+    public boolean LogarSistema(String nomeUsuario, String senhaUsuario){
+        if((nomeUsuario == null || nomeUsuario == "") || (senhaUsuario == null || senhaUsuario == "")){
+            return false;
+        }
+        
+        return usuarioDAO.BuscarUsuario(new Usuario(nomeUsuario, senhaUsuario));
+    }
 }
