@@ -14,4 +14,8 @@ public class UsuarioService {
         
         return usuarioDAO.BuscarUsuario(new Usuario(nomeUsuario, senhaUsuario));
     }
+
+    public boolean cadastrarUsuario(Usuario usuario) {
+        return dao.cadastrar(usuario);
+    }
 }
