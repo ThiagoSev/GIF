@@ -7,11 +7,11 @@ PASSWORD 'gif';
 
 GRANT ALL PRIVILEGES
 ON ALL TABLES IN SCHEMA public
-TO sistema;
+TO gif;
 
 GRANT ALL PRIVILEGES
 ON ALL SEQUENCES IN SCHEMA public
-TO sistema;
+TO gif;
 
 
 --tabelas
@@ -85,7 +85,7 @@ CREATE TABLE carrinho(
     idusuario int,
     datacriacao timestamp without time zone,
     ultimaatualizacao timestamp without time zone,
-    FOREIGN KEY (idusuario) REFERENCES jogo ON DELETE CASCADE
+    FOREIGN KEY (idusuario) REFERENCES usuario ON DELETE CASCADE
     
 );
 
@@ -98,3 +98,6 @@ CREATE TABLE carrinhoitens(
     FOREIGN KEY (idcarrinho) REFERENCES carrinho ON DELETE CASCADE
 
 );
+
+insert into usuario(nome, apelido, senha, datanascimento) 
+VALUES ('a','a','a',null)
