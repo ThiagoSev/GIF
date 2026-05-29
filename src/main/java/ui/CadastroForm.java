@@ -14,7 +14,7 @@ public class CadastroForm extends Jframe {
         initComponents();
     }
     
-    private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {
+    private void BtnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {
 
         try {
 

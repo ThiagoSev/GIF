@@ -23,7 +23,7 @@ public class UsuarioDAO {
         }
     }
 
-    public boolean cadastrar(Usuario usuario){
+    public boolean Cadastrar(Usuario usuario){
 
         String sql = """
                      INSERT INTO usuario
