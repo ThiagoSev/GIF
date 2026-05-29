@@ -6,8 +6,9 @@ import service.UsuarioService;
 import java.text.SimpleDateFormat;
 
 import javax.print.DocFlavor.STRING;
+import javax.swing.JFrame;
 
-public class CadastroForm extends  javax.swing.Jframe {
+public class CadastroForm extends Jframe {
 
     public CadastroForm() {
         initComponents();
