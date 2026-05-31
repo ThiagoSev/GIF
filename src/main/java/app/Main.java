@@ -11,11 +11,20 @@ import model.Usuario;
 import util.Conexao;
 
 import dao.*;
-import ui.LoginForm;
+import ui.*;
 
 public class Main {
 
     public static void main(String[] args) {
         new LoginForm().setVisible(true);
+        
+        //teste
+        Usuario admin = new Usuario(
+        1,
+        "admin",
+        "123",
+        true
+    );
+
     }
 }
