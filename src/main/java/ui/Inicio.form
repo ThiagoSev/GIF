@@ -48,6 +48,10 @@
                           <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="128" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
+                          <Component id="btnJogos" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="138" max="32767" attributes="0"/>
               </Group>
@@ -60,7 +64,9 @@
                   <Component id="jLabel1" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="160" max="32767" attributes="0"/>
+                  <EmptySpace pref="70" max="32767" attributes="0"/>
+                  <Component id="btnJogos" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -78,6 +84,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="o login funcionou e agora voc&#xea; est&#xe1; na tela inicial \ud83d\ude0e" containsInvalidXMLChars="true"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnJogos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Jogos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnJogosActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

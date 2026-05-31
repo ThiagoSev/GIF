@@ -5,6 +5,7 @@
 package ui;
 
 import service.*;
+import model.*;
 /**
  *
  * @author sever
@@ -102,17 +103,25 @@ public class LoginForm extends javax.swing.JFrame {
     
     private void btnLogarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogarMouseClicked
         // chama o serviço de usuário
-        UsuarioService usuarioService = new UsuarioService(); 
-        var result = usuarioService.LogarSistema(jTFNomeUsuario.getText(), new String(jPSSenhaUsuario.getPassword()));
-        
-        //se o usuário existir, abre a tela principal
-        if(result){
-            this.dispose();
-            new Inicio().setVisible(true);
-        }
-        else{
-            jLMsgErro.setText("Erro ao fazer login");
-        }
+        UsuarioService usuarioService = new UsuarioService();
+
+     Usuario usuarioLogado = usuarioService.LogarSistema(
+            jTFNomeUsuario.getText(),
+            new String(jPSSenhaUsuario.getPassword())
+    );
+
+    if (usuarioLogado != null) {
+
+        this.dispose();
+
+        new Inicio(usuarioLogado).setVisible(true);
+
+    } 
+    
+    else {
+
+        jLMsgErro.setText("Erro ao fazer login");
+    }
     }//GEN-LAST:event_btnLogarMouseClicked
 
     /**
