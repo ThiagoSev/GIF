@@ -33,25 +33,100 @@ public class CarrinhoDAO {
         }
     }
 
-    public boolean CriarCarrinho(Usuario usuario){
-        String sql = "INSERT INTO carrinho(idusuario, datacriacao, ultimaatualizacao) VALUES( ? , ? , ? );";
+    public boolean CriarCarrinho(Usuario usuario, Jogo jogoSelecionado){
+        
+        String sqlCarrinho =
+            "INSERT INTO carrinho(idusuario, datacriacao, ultimaatualizacao) " +
+            "VALUES (?, ?, ?)" +
+            "RETUNNING id";
 
-        try (Connection conn = Conexao.obterConexao();
-            PreparedStatement ps = conn.prepareStatement(sql)) 
-        {
-            ps.setInt(1, usuario.getId());
-            ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
-            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            int linhas = ps.executeUpdate();
+        String sqlItemCarrinho =
+            "INSERT INTO carrinhoitens(idcarrinho, idjogo) " +
+            "VALUES (?, ?)";
 
-            if(linhas == 0){
-                return false;
+        try (Connection conn = Conexao.obterConexao()) {
+
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement psCarrinho = conn.prepareStatement(sqlCarrinho)) {
+
+                Timestamp agora = new Timestamp(System.currentTimeMillis());
+
+                psCarrinho.setInt(1, usuario.getId());
+                psCarrinho.setTimestamp(2, agora);
+                psCarrinho.setTimestamp(3, agora);
+
+                psCarrinho.executeUpdate();
+
+                int idCarrinho;
+
+                try (ResultSet rs = psCarrinho.executeQuery()) {
+                    if (!rs.next()) {
+                        throw new SQLException("Não foi possível obter o ID do carrinho.");
+                    }
+
+                    idCarrinho = rs.getInt("id");
+                }
+                try (PreparedStatement psItem = conn.prepareStatement(sqlItemCarrinho)) {
+
+                    psItem.setInt(1, idCarrinho);
+                    psItem.setInt(2, jogoSelecionado.getId());
+                    
+                    psCarrinho.executeUpdate();
+                }
+
+                conn.commit();
+                return true;
             }
-            return true;
+            catch (Exception e) {
+                conn.rollback();
+                throw e;
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+            return false;
+        }
+        
+    }
+
+    public void AdicionarJogo(Carrinho carrinhoSelecionado, Jogo jogoSelecionado){
+        String sql = """
+            INSERT INTO carrinhoitens(idcarrinho, idjogo)
+            VALUES($, $)
+                    """;;
+
+        try(Connection conn = Conexao.obterConexao(); PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, carrinhoSelecionado.getId());
+            ps.setInt(2, jogoSelecionado.getId());
+
+            ps.executeUpdate();
         }
         catch (SQLException e) {
-            System.out.println("Erro: " +e.getMessage());
-            return false;
+            System.out.println("Erro ao salvar: " + e.getMessage());
+        }
+    }
+
+    //Remove um jogo do carrinho
+    public void RemoverJogoCarrinho(int idJogo, int idCarrinho) {
+        String sql = "DELETE FROM carrinhoitens WHERE idjogo = ? AND idcarrinho = ?";
+
+        try (
+            Connection conn = Conexao.obterConexao();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setInt(1, idJogo);
+            stmt.setInt(2, idCarrinho);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Jogo removido com sucesso!");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 }

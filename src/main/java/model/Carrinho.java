@@ -9,5 +9,7 @@ public class Carrinho {
     public LocalDateTime datacriacao;
     public LocalDateTime ultimaatualizacao;
 
-
+    public int getId() {
+        return id;
+    }
 }

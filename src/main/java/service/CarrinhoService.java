@@ -9,15 +9,15 @@ public class CarrinhoService {
         return carrinhoDAO.BuscarCarrinho(usuario);
     } 
 
-    public void CriarCarrinho(Usuario usuario){
-        carrinhoDAO.CriarCarrinho(usuario);
+    public void CriarCarrinho(Usuario usuario, Jogo jogoSelecionado){
+        carrinhoDAO.CriarCarrinho(usuario, jogoSelecionado);
     }
 
-    public void AdicionarJogoCarrinho(){
-
+    public void AdicionarJogoCarrinho(Carrinho carrinho, Jogo jogoSelecionado){
+        carrinhoDAO.AdicionarJogo(carrinho, jogoSelecionado);
     }
 
-    public void RemoverJogoCarrinho(){
-        
+    public void RemoverJogoCarrinho(Carrinho carrinho, Jogo jogoSelecionado){
+        carrinhoDAO.RemoverJogoCarrinho(carrinho.getId(), jogoSelecionado.getId());
     }
 }

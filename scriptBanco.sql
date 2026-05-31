@@ -93,7 +93,6 @@ CREATE TABLE carrinho(
 CREATE TABLE carrinhoitens(
     idjogo int,
     idcarrinho int,
-    quantidade int,
     PRIMARY KEY(idjogo, idcarrinho),
     FOREIGN KEY (idjogo) REFERENCES jogo ON DELETE CASCADE,
     FOREIGN KEY (idcarrinho) REFERENCES carrinho ON DELETE CASCADE
