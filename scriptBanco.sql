@@ -83,6 +83,7 @@ CREATE TABLE bibliotecajogos(
 CREATE TABLE carrinho(
     id SERIAL PRIMARY KEY,
     idusuario int,
+    valorTotal numeric(4,2),
     datacriacao timestamp without time zone,
     ultimaatualizacao timestamp without time zone,
     FOREIGN KEY (idusuario) REFERENCES usuario ON DELETE CASCADE
