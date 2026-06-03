@@ -31,6 +31,7 @@ CREATE TABLE usuario
     nome varchar(20) NOT NULL,
     apelido varchar(20) NOT NULL,
     senha varchar(20) NOT NULL,
+    administrador boolean DEFAULT false,
     datanascimento timestamp without time zone
 );
 
