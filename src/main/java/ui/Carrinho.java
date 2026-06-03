@@ -1,24 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ui;
 
-/**
- *
- * @author sever
- */
+import model.Jogo;
+import java.util.List;
+import java.util.ArrayList;
+
 public class Carrinho extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Carrinho.class.getName());
 
-    /**
-     * Creates new form Carrinho
-     */
-    public Carrinho() {
+    private List<Jogo> carrinho;
+    
+    public Carrinho(List<Jogo> carrinho) {
         initComponents();
+        
+        this.carrinho = carrinho;
+        
+        if(this.carrinho != null){
+            atualizarCarrinho();
+        }
+        
     }
 
+    private void atualizarCarrinho() {
+
+        jPanel1.removeAll();
+
+        for (Jogo jogo : carrinho) {
+
+            PainelJogoCarrinho painel =
+                    new PainelJogoCarrinho(jogo);
+
+            jPanel1.add(painel);
+        }
+
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,17 +46,23 @@ public class Carrinho extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelCarrinho = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
+        panelCarrinho.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(panelCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(panelCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -66,9 +90,11 @@ public class Carrinho extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Carrinho().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Carrinho(new ArrayList<>()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane panelCarrinho;
     // End of variables declaration//GEN-END:variables
 }

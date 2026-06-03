@@ -5,10 +5,12 @@
 package ui;
 import model.*;
 import service.*;
-/**
- *
- * @author sever
- */
+
+import java.util.List;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.math.BigDecimal;
+
 public class Inicio extends javax.swing.JFrame {
     
     private Usuario usuarioLogado;
@@ -39,18 +41,23 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnJogos = new javax.swing.JButton();
+        btnCarrinho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("PARABÉNS");
-
-        jLabel2.setText("o login funcionou e agora você está na tela inicial 😎");
+        jLabel1.setText("Tela Inicial");
 
         btnJogos.setText("Jogos");
         btnJogos.addActionListener(this::btnJogosActionPerformed);
+
+        btnCarrinho.setText("Carrinho");
+        btnCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCarrinhoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -59,26 +66,25 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addComponent(btnJogos)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                        .addGap(127, 127, 127)
+                        .addComponent(btnJogos)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnCarrinho)))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addComponent(btnJogos)
-                .addGap(67, 67, 67))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnJogos)
+                    .addComponent(btnCarrinho))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -96,13 +102,24 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJogosActionPerformed
-if (usuarioLogado != null) {
+        if (usuarioLogado != null) {
 
-    this.dispose();
+            this.dispose();
 
-    new TelaJogos(usuarioLogado).setVisible(true);
-}// TODO add your handling code here:
+            new TelaJogos(usuarioLogado).setVisible(true);
+        }
     }//GEN-LAST:event_btnJogosActionPerformed
+
+    private void btnCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarrinhoMouseClicked
+        this.dispose();
+        
+        List<Jogo> jogos = new ArrayList<Jogo>();
+        
+        jogos.add(new Jogo("minecraft", "java", "minecraft java", new BigDecimal("10.50"), new BigDecimal("10.50"),false, LocalDateTime.now(), 1, 1));
+        jogos.add(new Jogo("fortnite", "mobile", "fortnite mobile", new BigDecimal("0.50"), new BigDecimal("10.50"),false, LocalDateTime.now(), 1, 1));
+        
+        new Carrinho(jogos).setVisible(true);
+    }//GEN-LAST:event_btnCarrinhoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -130,9 +147,9 @@ if (usuarioLogado != null) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCarrinho;
     private javax.swing.JButton btnJogos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

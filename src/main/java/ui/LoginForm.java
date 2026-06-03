@@ -105,23 +105,21 @@ public class LoginForm extends javax.swing.JFrame {
         // chama o serviço de usuário
         UsuarioService usuarioService = new UsuarioService();
 
-     Usuario usuarioLogado = usuarioService.LogarSistema(
+        Usuario usuarioLogado = usuarioService.LogarSistema(
             jTFNomeUsuario.getText(),
             new String(jPSSenhaUsuario.getPassword())
-    );
+        );
 
-    if (usuarioLogado != null) {
+        if (usuarioLogado != null) {
 
-        this.dispose();
+            this.dispose();
+            new Inicio(usuarioLogado).setVisible(true);
 
-        new Inicio(usuarioLogado).setVisible(true);
-
-    } 
+        } 
     
-    else {
-
-        jLMsgErro.setText("Erro ao fazer login");
-    }
+        else {
+            jLMsgErro.setText("Erro ao fazer login");
+        }
     }//GEN-LAST:event_btnLogarMouseClicked
 
     /**
