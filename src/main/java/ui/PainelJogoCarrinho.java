@@ -1,13 +1,25 @@
 package ui;
 
 import model.Jogo;
+import model.CarrinhoModel;
+
+import service.*;
+
 
 public class PainelJogoCarrinho extends javax.swing.JPanel {
 
-    public PainelJogoCarrinho(Jogo jogo) {
+    Jogo jogo = new Jogo();   
+    CarrinhoModel carrinho = new CarrinhoModel();
+
+    
+    public PainelJogoCarrinho(Jogo jogo, CarrinhoModel carrinho) {
         initComponents();
         
-        nomeJogo.setText(jogo.getDescricao());
+        this.jogo = jogo;        
+        this.carrinho = carrinho;
+
+        
+        nomeJogo.setText(jogo.getTitulo());
         precoJogo.setText("R$ " + jogo.getPrecoPadrao());
     }
 
@@ -18,7 +30,7 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
         imagemJogo = new javax.swing.JLabel();
         nomeJogo = new javax.swing.JLabel();
         precoJogo = new javax.swing.JLabel();
-        BtnRemoverJogo = new javax.swing.JButton();
+        btnRemoverJogo = new javax.swing.JButton();
 
         imagemJogo.setText("imagme");
 
@@ -27,7 +39,12 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
 
         precoJogo.setText("Preço");
 
-        BtnRemoverJogo.setText("jButton1");
+        btnRemoverJogo.setText("Remover");
+        btnRemoverJogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRemoverJogoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -44,8 +61,8 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
                         .addComponent(precoJogo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(156, 156, 156)
-                        .addComponent(BtnRemoverJogo)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(btnRemoverJogo)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -56,14 +73,20 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
                     .addComponent(nomeJogo)
                     .addComponent(precoJogo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BtnRemoverJogo)
+                .addComponent(btnRemoverJogo)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRemoverJogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverJogoMouseClicked
+        CarrinhoService service = new CarrinhoService();
+        
+        service.RemoverJogoCarrinho(carrinho, jogo);
+    }//GEN-LAST:event_btnRemoverJogoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnRemoverJogo;
+    private javax.swing.JButton btnRemoverJogo;
     private javax.swing.JLabel imagemJogo;
     private javax.swing.JLabel nomeJogo;
     private javax.swing.JLabel precoJogo;

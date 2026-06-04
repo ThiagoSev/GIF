@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 
-public class Carrinho {
+public class CarrinhoModel {
     public int id;
     public int idusuario;
     public double valorTotal;

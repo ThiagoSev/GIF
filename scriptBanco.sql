@@ -16,14 +16,14 @@ TO gif;
 
 --tabelas
 
-DROP TABLE IF EXISTS usuario;
-DROP TABLE IF EXISTS distribuidor;
-DROP TABLE IF EXISTS genero;
-DROP TABLE IF EXISTS jogo;
-DROP TABLE IF EXISTS generoJogo;
-DROP TABLE IF EXISTS bibliotecajogos;
-DROP TABLE IF EXISTS carrinho;
-DROP TABLE IF EXISTS carrinhoitens;
+DROP TABLE IF EXISTS usuario CASCADE;
+DROP TABLE IF EXISTS distribuidor CASCADE;
+DROP TABLE IF EXISTS genero CASCADE;
+DROP TABLE IF EXISTS jogo CASCADE;
+DROP TABLE IF EXISTS generoJogo CASCADE;
+DROP TABLE IF EXISTS bibliotecajogos CASCADE;
+DROP TABLE IF EXISTS carrinho CASCADE;
+DROP TABLE IF EXISTS carrinhoitens CASCADE;
 
 CREATE TABLE usuario
 (
@@ -55,9 +55,9 @@ CREATE TABLE jogo
     subtitulo varchar(50) NOT NULL,
     descricao text DEFAULT '',
     precopadrao NUMERIC(6,2) NOT NULL,
-    preçopromocao NUMERIC(6,2),
+    precopromocao NUMERIC(6,2),
     estaempromocao BOOL DEFAULT false,
-    datalançamento timestamp without time zone,
+    datalancamento timestamp without time zone,
     iddistribuidor int,
     idcriador int,
     FOREIGN KEY (iddistribuidor) REFERENCES distribuidor ON DELETE CASCADE,
@@ -83,8 +83,8 @@ CREATE TABLE bibliotecajogos(
 
 CREATE TABLE carrinho(
     id SERIAL PRIMARY KEY,
-    idusuario int,
-    valorTotal numeric(4,2),
+    idusuario int NOT NULL UNIQUE,
+    valorTotal numeric(4,2) DEFAULT 0,
     datacriacao timestamp without time zone,
     ultimaatualizacao timestamp without time zone,
     FOREIGN KEY (idusuario) REFERENCES usuario ON DELETE CASCADE

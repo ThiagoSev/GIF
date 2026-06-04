@@ -1,6 +1,7 @@
 package ui;
 
 import model.Jogo;
+import model.CarrinhoModel;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -8,14 +9,16 @@ public class Carrinho extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Carrinho.class.getName());
 
-    private List<Jogo> carrinho;
+    private List<Jogo> itensCarrinho;
+    private CarrinhoModel carrinho;
     
-    public Carrinho(List<Jogo> carrinho) {
+    public Carrinho(List<Jogo> itensCarrinho, CarrinhoModel carrinho) {
         initComponents();
         
+        this.itensCarrinho = itensCarrinho;
         this.carrinho = carrinho;
         
-        if(this.carrinho != null){
+        if(this.itensCarrinho != null){
             atualizarCarrinho();
         }
         
@@ -25,10 +28,10 @@ public class Carrinho extends javax.swing.JFrame {
 
         jPanel1.removeAll();
 
-        for (Jogo jogo : carrinho) {
+        for (Jogo jogo : itensCarrinho) {
 
             PainelJogoCarrinho painel =
-                    new PainelJogoCarrinho(jogo);
+                    new PainelJogoCarrinho(jogo, carrinho);
 
             jPanel1.add(painel);
         }
@@ -90,7 +93,7 @@ public class Carrinho extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Carrinho(new ArrayList<>()).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Carrinho(new ArrayList<>(), new CarrinhoModel()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

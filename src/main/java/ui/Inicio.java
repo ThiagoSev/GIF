@@ -8,17 +8,29 @@ import service.*;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
 import java.math.BigDecimal;
 
 public class Inicio extends javax.swing.JFrame {
     
     private Usuario usuarioLogado;
+    private CarrinhoModel carrinhoDoUsuario;
 
     public Inicio(Usuario usuarioLogado) {
         initComponents();
 
         this.usuarioLogado = usuarioLogado;
+        
+        CarrinhoService carrinoService = new CarrinhoService();
+        
+        //busca o carrinho e deixa-o na memória
+        this.carrinhoDoUsuario = carrinoService.BuscarCarrinho(usuarioLogado);
+        
+        //Se houver itens no carrinho, exibe o botão de carrinho
+        var jogos = carrinoService.BuscarJogosCarrinho(usuarioLogado);
+        
+        btnCarrinho.setVisible(false);
+        if(jogos != null)
+            btnCarrinho.setVisible(true);
     }
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inicio.class.getName());
@@ -42,6 +54,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnJogos = new javax.swing.JButton();
+        btnTesteAddJogoCarrinho = new javax.swing.JButton();
         btnCarrinho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,38 +65,44 @@ public class Inicio extends javax.swing.JFrame {
         btnJogos.setText("Jogos");
         btnJogos.addActionListener(this::btnJogosActionPerformed);
 
-        btnCarrinho.setText("Carrinho");
-        btnCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnTesteAddJogoCarrinho.setText("adicionar minecraft no carrinho");
+        btnTesteAddJogoCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCarrinhoMouseClicked(evt);
+                btnTesteAddJogoCarrinhoMouseClicked(evt);
             }
         });
+
+        btnCarrinho.setText("carrinho");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(btnJogos)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnCarrinho)))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCarrinho)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(166, 166, 166)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(127, 127, 127)
+                            .addComponent(btnJogos)
+                            .addGap(34, 34, 34)
+                            .addComponent(btnTesteAddJogoCarrinho))))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(13, 13, 13)
+                .addComponent(btnCarrinho)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnJogos)
-                    .addComponent(btnCarrinho))
+                    .addComponent(btnTesteAddJogoCarrinho))
                 .addContainerGap(170, Short.MAX_VALUE))
         );
 
@@ -110,16 +129,23 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnJogosActionPerformed
 
-    private void btnCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarrinhoMouseClicked
+    private void btnTesteAddJogoCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTesteAddJogoCarrinhoMouseClicked
         this.dispose();
         
         List<Jogo> jogos = new ArrayList<Jogo>();
         
-        jogos.add(new Jogo("minecraft", "java", "minecraft java", new BigDecimal("10.50"), new BigDecimal("10.50"),false, LocalDateTime.now(), 1, 1));
-        jogos.add(new Jogo("fortnite", "mobile", "fortnite mobile", new BigDecimal("0.50"), new BigDecimal("10.50"),false, LocalDateTime.now(), 1, 1));
-        
-        new Carrinho(jogos).setVisible(true);
-    }//GEN-LAST:event_btnCarrinhoMouseClicked
+        //teste de carrinho. Quando o usuário adicionar um jogo no carrinho
+        //deve chamar o método CarrinhoService.AdicionarJogoCarrinho passando o usuario e o jogo selecionado
+        //criei um jogo hardcoded aqui só pra teste, se vira ai caique
+        CarrinhoService service = new CarrinhoService();
+        Jogo minecraft = new Jogo("Minecraft", "minecraft Java 21.2", new BigDecimal(99.9));
+        minecraft.setId(1);
+        service.AdicionarJogoCarrinho(usuarioLogado, minecraft);
+
+        jogos = service.BuscarJogosCarrinho(usuarioLogado);
+
+        new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
+    }//GEN-LAST:event_btnTesteAddJogoCarrinhoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -149,6 +175,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCarrinho;
     private javax.swing.JButton btnJogos;
+    private javax.swing.JButton btnTesteAddJogoCarrinho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

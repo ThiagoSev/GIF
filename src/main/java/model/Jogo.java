@@ -26,6 +26,14 @@ public class Jogo {
     public Jogo() {
     }
 
+    //contrutor com os elementos opcionais (sem o NOT NULL no banco)
+    public Jogo(String titulo, String subtitulo, BigDecimal precoPadrao) {
+
+        this.titulo = titulo;
+        this.subtitulo = subtitulo;
+        this.precoPadrao = precoPadrao;
+    }
+    
     public Jogo(String titulo, String subtitulo, String descricao,
                 BigDecimal precoPadrao, BigDecimal precoPromocao,
                 boolean estaEmPromocao, LocalDateTime dataLancamento,
