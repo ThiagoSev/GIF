@@ -1,50 +1,40 @@
 package ui;
 
-import model.Usuario;
-import service.UsuarioService;
-
-import java.text.SimpleDateFormat;
-
-import javax.print.DocFlavor.STRING;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import java.awt.FlowLayout;
 
-public class CadastroForm extends Jframe {
+public class CadastroForm extends JFrame {
 
     public CadastroForm() {
-        initComponents();
-    }
-    
-    private void BtnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {
 
-        try {
+        setTitle("Cadastro");
 
-            String nome = txtNome.getText();
-            String senha = new String(txtSenha.getPassword());
-            String apelido = txtApelido.getText();
+        setSize(300, 300);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        setLocationRelativeTo(null);
 
-            java.util.Date data = sdf.parse(txtDataNascimento.getText());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            Usuario usuario = new Usuario(
-                nome, 
-                senha,
-                apelido,
-                data
-            );
+        setLayout(new FlowLayout());
 
-            UsuarioService service = new UsuarioService();
+        add(new JLabel("Nome"));
+        add(new JTextField(20));
 
-            boolean resultado = service.cadastrarUsuario(usuario);
+        add(new JLabel("Senha"));
+        add(new JPasswordField(20));
 
-            if(resultado) {
-                iblMensagem.setText("Usuário cadastrado com sucesso!");
-            }
-            else {
-                iblMensagem.setText("Erro ao cadastrar usuário!");
-            }
-        } catch (Exception e) {
-            iblMensagem.setText("Data Inválida!");
-        }
+        add(new JLabel("Apelido"));
+        add(new JTextField(20));
+
+        add(new JLabel("Data"));
+        add(new JTextField(20));
+
+        JButton botao = new JButton("Cadastrar");
+
+        add(botao);
     }
 }
