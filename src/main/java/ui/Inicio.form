@@ -40,7 +40,6 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnCarrinho" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
@@ -52,6 +51,10 @@
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="btnTesteAddJogoCarrinho" min="-2" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="btnCarrinho" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="52" max="32767" attributes="0"/>
@@ -104,6 +107,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="carrinho"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCarrinhoMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

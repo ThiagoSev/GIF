@@ -119,14 +119,17 @@ try {
 
         jogo.setDataLancamento(LocalDateTime.now());
 
-        // ajuste conforme os IDs existentes no seu banco
         jogo.setIdDistribuidor(1);
+        jogo.setIdCriador(1);
 
         JogoDAO dao = new JogoDAO();
-        dao.salvar(jogo, usuarioLogado);
-
-        JOptionPane.showMessageDialog(this,
+        boolean result = dao.salvar(jogo, usuarioLogado);
+        if(result)
+            JOptionPane.showMessageDialog(this,
                 "Jogo cadastrado com sucesso!");
+        else
+            JOptionPane.showMessageDialog(this,
+                "Erro ao cadastrar jogo");
 
 
     } catch (Exception e) {

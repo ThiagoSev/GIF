@@ -6,10 +6,8 @@ package ui;
 
 import service.*;
 import model.*;
-/**
- *
- * @author sever
- */
+import util.UsuarioLogadoSingleton;
+
 public class LoginForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
@@ -111,7 +109,8 @@ public class LoginForm extends javax.swing.JFrame {
         );
 
         if (usuarioLogado != null) {
-
+            UsuarioLogadoSingleton usuarioLogado = new UsuarioLogadoSingleton();
+            
             this.dispose();
             new Inicio(usuarioLogado).setVisible(true);
 

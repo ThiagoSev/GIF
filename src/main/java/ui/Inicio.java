@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ui;
 import model.*;
 import service.*;
@@ -27,9 +23,8 @@ public class Inicio extends javax.swing.JFrame {
         
         //Se houver itens no carrinho, exibe o botão de carrinho
         var jogos = carrinoService.BuscarJogosCarrinho(usuarioLogado);
-        
-        btnCarrinho.setVisible(false);
-        if(jogos != null)
+        btnCarrinho.setVisible(true);
+        if(!jogos.isEmpty())
             btnCarrinho.setVisible(true);
     }
     
@@ -73,6 +68,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         btnCarrinho.setText("carrinho");
+        btnCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCarrinhoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,7 +80,6 @@ public class Inicio extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCarrinho)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(166, 166, 166)
@@ -89,7 +88,10 @@ public class Inicio extends javax.swing.JFrame {
                             .addGap(127, 127, 127)
                             .addComponent(btnJogos)
                             .addGap(34, 34, 34)
-                            .addComponent(btnTesteAddJogoCarrinho))))
+                            .addComponent(btnTesteAddJogoCarrinho)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btnCarrinho)))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -146,6 +148,15 @@ public class Inicio extends javax.swing.JFrame {
 
         new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
     }//GEN-LAST:event_btnTesteAddJogoCarrinhoMouseClicked
+
+    private void btnCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarrinhoMouseClicked
+        List<Jogo> jogos = new ArrayList<Jogo>();
+        
+        CarrinhoService service = new CarrinhoService();
+        jogos = service.BuscarJogosCarrinho(usuarioLogado);
+        
+        new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
+    }//GEN-LAST:event_btnCarrinhoMouseClicked
 
     /**
      * @param args the command line arguments

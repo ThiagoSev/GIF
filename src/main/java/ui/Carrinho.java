@@ -17,6 +17,7 @@ public class Carrinho extends javax.swing.JFrame {
         
         this.itensCarrinho = itensCarrinho;
         this.carrinho = carrinho;
+        valorTotalCarrinho.setText( String.valueOf(this.carrinho.getValorTotal()));
         
         if(this.itensCarrinho != null){
             atualizarCarrinho();
@@ -51,25 +52,73 @@ public class Carrinho extends javax.swing.JFrame {
 
         panelCarrinho = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        tituloCarrinho = new javax.swing.JLabel();
+        valorTotalCarrinho = new javax.swing.JLabel();
+        btnTelaInicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
         panelCarrinho.setViewportView(jPanel1);
 
+        tituloCarrinho.setText("jLabel1");
+
+        valorTotalCarrinho.setText("R$0,00");
+
+        btnTelaInicio.setText("voltar");
+        btnTelaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTelaInicioMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(valorTotalCarrinho)
+                    .addComponent(tituloCarrinho)
+                    .addComponent(btnTelaInicio))
+                .addContainerGap(322, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnTelaInicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tituloCarrinho)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(valorTotalCarrinho)
+                .addGap(14, 14, 14))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(panelCarrinho)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTelaInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTelaInicioMouseClicked
+        this.dispose();
+        new Inicio(usuarioLogado).setVisible(true);
+    }//GEN-LAST:event_btnTelaInicioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -97,7 +146,11 @@ public class Carrinho extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTelaInicio;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane panelCarrinho;
+    private javax.swing.JLabel tituloCarrinho;
+    private javax.swing.JLabel valorTotalCarrinho;
     // End of variables declaration//GEN-END:variables
 }

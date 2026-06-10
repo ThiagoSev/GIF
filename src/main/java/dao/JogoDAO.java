@@ -10,18 +10,18 @@ import model.*;
 import util.Conexao;
 
 public class JogoDAO {
-    public void salvar(Jogo jogo, Usuario usuario) {
+    public boolean salvar(Jogo jogo, Usuario usuario) {
         
         if (!usuario.isAdministrador()) {
             System.out.println("Acesso negado. Apenas administradores podem cadastrar jogos.");
-            return;
+            return false;
         }
 
         String sql = """
             INSERT INTO jogo
             (titulo, subtitulo, descricao, precopadrao,
              precopromocao, estaempromocao,
-             datalançamento, iddistribuidor, idcriador)
+             datalancamento, iddistribuidor, idcriador)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
             
@@ -43,14 +43,16 @@ public class JogoDAO {
             );
 
             stmt.setInt(8, jogo.getIdDistribuidor());
-            stmt.setInt(9, jogo.getId());
+            stmt.setInt(9, jogo.getIdCriador());
 
             stmt.executeUpdate();
 
             System.out.println("Jogo salvo com sucesso!");
+            return true;
 
         } catch (SQLException e) {
             System.out.println("Erro ao salvar: " + e.getMessage());
+            return false;
         }
     }
     public void remover(int idJogo, Usuario usuario) {
