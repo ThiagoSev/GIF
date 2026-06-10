@@ -26,10 +26,10 @@ public class Inicio extends javax.swing.JFrame {
         this.carrinhoDoUsuario = carrinoService.BuscarCarrinho(usuarioLogado);
         
         //Se houver itens no carrinho, exibe o botão de carrinho
-        var jogos = carrinoService.BuscarJogosCarrinho(usuarioLogado);
-        
+        List<Jogo> jogos = carrinoService.BuscarJogosCarrinho(usuarioLogado);
+        System.out.println("tamanho: "+jogos.size());
         btnCarrinho.setVisible(false);
-        if(jogos != null)
+        if(jogos != null && jogos.size() != 0)
             btnCarrinho.setVisible(true);
     }
     

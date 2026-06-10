@@ -3,6 +3,7 @@ package ui;
 import model.Jogo;
 import model.CarrinhoModel;
 
+import util.*;
 import service.*;
 
 
@@ -10,14 +11,15 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
 
     Jogo jogo = new Jogo();   
     CarrinhoModel carrinho = new CarrinhoModel();
+    private OnRemoverListener listener;
 
     
-    public PainelJogoCarrinho(Jogo jogo, CarrinhoModel carrinho) {
+    public PainelJogoCarrinho(Jogo jogo, CarrinhoModel carrinho, OnRemoverListener listener) {
         initComponents();
         
         this.jogo = jogo;        
         this.carrinho = carrinho;
-
+        this.listener = listener;
         
         nomeJogo.setText(jogo.getTitulo());
         precoJogo.setText("R$ " + jogo.getPrecoPadrao());
@@ -82,6 +84,8 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
         CarrinhoService service = new CarrinhoService();
         
         service.RemoverJogoCarrinho(carrinho, jogo);
+        
+        listener.onRemover(jogo);
     }//GEN-LAST:event_btnRemoverJogoMouseClicked
 
 

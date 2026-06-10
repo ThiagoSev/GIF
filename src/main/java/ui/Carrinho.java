@@ -30,8 +30,14 @@ public class Carrinho extends javax.swing.JFrame {
 
         for (Jogo jogo : itensCarrinho) {
 
-            PainelJogoCarrinho painel =
-                    new PainelJogoCarrinho(jogo, carrinho);
+            PainelJogoCarrinho painel = new PainelJogoCarrinho(
+                    jogo,
+                    carrinho,
+                    jogoRemovido -> {
+                        itensCarrinho.remove(jogoRemovido);
+                        atualizarCarrinho();
+                    }
+                );
 
             jPanel1.add(painel);
         }

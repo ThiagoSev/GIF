@@ -27,8 +27,8 @@ public class TelaJogos extends javax.swing.JFrame {
         
         this.usuarioLogado = usuarioLogado;
 
-    btnAdicionar.setVisible(usuarioLogado.isAdministrador());
-    btnRemover.setVisible(usuarioLogado.isAdministrador());
+        btnAdicionar.setVisible(usuarioLogado.isAdministrador());
+        btnRemover.setVisible(usuarioLogado.isAdministrador());
     
  }
     @SuppressWarnings("unchecked")
@@ -137,37 +137,30 @@ try {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-try {
+        try {
 
-        String idTexto = JOptionPane.showInputDialog(this,
-                "ID do jogo que deseja remover:");
+            String idTexto = JOptionPane.showInputDialog(this,
+                    "ID do jogo que deseja remover:");
 
-        int id = Integer.parseInt(idTexto);
+            int id = Integer.parseInt(idTexto);
 
-        JogoDAO dao = new JogoDAO();
-        dao.remover(id, usuarioLogado);
+            JogoDAO dao = new JogoDAO();
+            dao.remover(id, usuarioLogado);
 
 
-    } catch (Exception e) {
+        } catch (Exception e) {
 
-        JOptionPane.showMessageDialog(this,
-                "Erro ao remover: " + e.getMessage());
-    }        // TODO add your handling code here:
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao remover: " + e.getMessage());
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-      Usuario admin = new Usuario(
-        1,
-        "admin",
-        "123",
-        true
-    );
-
     java.awt.EventQueue.invokeLater(() ->
-        new TelaJogos(admin).setVisible(true)
+        new TelaJogos(new Usuario()).setVisible(true)
     );
     }
 
