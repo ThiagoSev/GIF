@@ -12,4 +12,8 @@ public class CarrinhoModel {
     public int getId() {
         return id;
     }
+    
+    public double getValorTotal(){
+        return valorTotal;
+    }
 }
