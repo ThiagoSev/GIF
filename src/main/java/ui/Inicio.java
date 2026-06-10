@@ -5,16 +5,20 @@ import service.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
+import util.Sessao;
+
 
 public class Inicio extends javax.swing.JFrame {
     
     private Usuario usuarioLogado;
     private CarrinhoModel carrinhoDoUsuario;
 
-    public Inicio(Usuario usuarioLogado) {
+    public Inicio() {
         initComponents();
-
-        this.usuarioLogado = usuarioLogado;
+        setLocationRelativeTo(null);
+        
+        Sessao usuarioLogadoSingleton = new Sessao();
+        this.usuarioLogado = Sessao.getUsuarioLogado();
         
         CarrinhoService carrinoService = new CarrinhoService();
         
@@ -29,14 +33,7 @@ public class Inicio extends javax.swing.JFrame {
     }
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inicio.class.getName());
-
-    /**
-     * Creates new form Inicio
-     */
-    public Inicio() {
-        initComponents();
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,6 +152,7 @@ public class Inicio extends javax.swing.JFrame {
         CarrinhoService service = new CarrinhoService();
         jogos = service.BuscarJogosCarrinho(usuarioLogado);
         
+        this.dispose();
         new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
     }//GEN-LAST:event_btnCarrinhoMouseClicked
 

@@ -4,6 +4,7 @@ import model.Jogo;
 import model.CarrinhoModel;
 import java.util.List;
 import java.util.ArrayList;
+    
 
 public class Carrinho extends javax.swing.JFrame {
     
@@ -14,6 +15,7 @@ public class Carrinho extends javax.swing.JFrame {
     
     public Carrinho(List<Jogo> itensCarrinho, CarrinhoModel carrinho) {
         initComponents();
+        setLocationRelativeTo(null);
         
         this.itensCarrinho = itensCarrinho;
         this.carrinho = carrinho;
@@ -123,7 +125,9 @@ public class Carrinho extends javax.swing.JFrame {
 
     private void btnTelaInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTelaInicioMouseClicked
         this.dispose();
-        new Inicio(usuarioLogado).setVisible(true);
+        
+        //abre a tela de login
+        new Inicio().setVisible(true);
     }//GEN-LAST:event_btnTelaInicioMouseClicked
 
     /**

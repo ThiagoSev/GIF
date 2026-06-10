@@ -6,7 +6,7 @@ package ui;
 
 import service.*;
 import model.*;
-import util.UsuarioLogadoSingleton;
+import util.Sessao;
 
 public class LoginForm extends javax.swing.JFrame {
     
@@ -17,6 +17,7 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -109,10 +110,11 @@ public class LoginForm extends javax.swing.JFrame {
         );
 
         if (usuarioLogado != null) {
-            UsuarioLogadoSingleton usuarioLogado = new UsuarioLogadoSingleton();
+            Sessao Sessao = new Sessao();
+            Sessao.setUsuarioLogado(usuarioLogado);
             
             this.dispose();
-            new Inicio(usuarioLogado).setVisible(true);
+            new Inicio().setVisible(true);
 
         } 
     
