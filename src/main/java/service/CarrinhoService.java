@@ -19,8 +19,8 @@ public class CarrinhoService {
         carrinhoDAO.AdicionarJogo(usuario, jogoSelecionado);
     }
 
-    public void RemoverJogoCarrinho(CarrinhoModel carrinho, Jogo jogoSelecionado){
-        carrinhoDAO.RemoverJogoCarrinho(carrinho.getId(), jogoSelecionado.getId());
+    public boolean RemoverJogoCarrinho(CarrinhoModel carrinho, Jogo jogoSelecionado){
+        return carrinhoDAO.RemoverJogoCarrinho(carrinho, jogoSelecionado);
     }
 
     public List<Jogo> BuscarJogosCarrinho(Usuario usuario){

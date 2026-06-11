@@ -23,15 +23,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelCarrinho" max="32767" attributes="0"/>
           <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+          <Component id="panelCarrinho" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
               <Component id="panelCarrinho" min="-2" pref="220" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -58,11 +58,22 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="valorTotalCarrinho" min="-2" max="-2" attributes="0"/>
-                      <Component id="tituloCarrinho" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnTelaInicio" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnTelaInicio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="valorTotalCarrinho" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="tituloCarrinho" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="329" max="32767" attributes="0"/>
+                                  <Component id="pagarCarrinho" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="322" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -72,10 +83,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnTelaInicio" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="tituloCarrinho" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="tituloCarrinho" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="pagarCarrinho" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Component id="valorTotalCarrinho" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -86,17 +104,25 @@
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="valorTotalCarrinho">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="R$0,00"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnTelaInicio">
           <Properties>
             <Property name="text" type="java.lang.String" value="voltar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTelaInicioMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="valorTotalCarrinho">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jLabel1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="pagarCarrinho">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="pagar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pagarCarrinhoMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

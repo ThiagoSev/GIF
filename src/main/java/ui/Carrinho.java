@@ -4,6 +4,7 @@ import model.Jogo;
 import model.CarrinhoModel;
 import java.util.List;
 import java.util.ArrayList;
+import java.math.BigDecimal;
     
 
 public class Carrinho extends javax.swing.JFrame {
@@ -19,7 +20,8 @@ public class Carrinho extends javax.swing.JFrame {
         
         this.itensCarrinho = itensCarrinho;
         this.carrinho = carrinho;
-        valorTotalCarrinho.setText( String.valueOf(this.carrinho.getValorTotal()));
+        
+        tituloCarrinho.setText("Carrinho");
         
         if(this.itensCarrinho != null){
             atualizarCarrinho();
@@ -30,7 +32,9 @@ public class Carrinho extends javax.swing.JFrame {
     private void atualizarCarrinho() {
 
         jPanel1.removeAll();
-
+        
+        BigDecimal valortotal = BigDecimal.ZERO;
+        
         for (Jogo jogo : itensCarrinho) {
 
             PainelJogoCarrinho painel = new PainelJogoCarrinho(
@@ -43,8 +47,18 @@ public class Carrinho extends javax.swing.JFrame {
                 );
 
             jPanel1.add(painel);
+            
+            //calcula o valor total do carrinho
+            if(jogo.isEstaEmPromocao()){
+                valortotal = valortotal.add(jogo.getPrecoPromocao());
+            }
+            else{
+                valortotal = valortotal.add(jogo.getPrecoPadrao());
+            }
         }
 
+        valorTotalCarrinho.setText("Valor Total: R$"+ valortotal);
+        
         jPanel1.revalidate();
         jPanel1.repaint();
     }
@@ -62,8 +76,9 @@ public class Carrinho extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         tituloCarrinho = new javax.swing.JLabel();
-        valorTotalCarrinho = new javax.swing.JLabel();
         btnTelaInicio = new javax.swing.JButton();
+        valorTotalCarrinho = new javax.swing.JLabel();
+        pagarCarrinho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,12 +87,19 @@ public class Carrinho extends javax.swing.JFrame {
 
         tituloCarrinho.setText("jLabel1");
 
-        valorTotalCarrinho.setText("R$0,00");
-
         btnTelaInicio.setText("voltar");
         btnTelaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTelaInicioMouseClicked(evt);
+            }
+        });
+
+        valorTotalCarrinho.setText("jLabel1");
+
+        pagarCarrinho.setText("pagar");
+        pagarCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pagarCarrinhoMouseClicked(evt);
             }
         });
 
@@ -88,10 +110,17 @@ public class Carrinho extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(valorTotalCarrinho)
-                    .addComponent(tituloCarrinho)
-                    .addComponent(btnTelaInicio))
-                .addContainerGap(322, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnTelaInicio)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(valorTotalCarrinho)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tituloCarrinho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 329, Short.MAX_VALUE)
+                                .addComponent(pagarCarrinho)))
+                        .addGap(38, 38, 38))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,24 +128,28 @@ public class Carrinho extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnTelaInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tituloCarrinho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(valorTotalCarrinho)
-                .addGap(14, 14, 14))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(tituloCarrinho)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(pagarCarrinho)
+                        .addGap(16, 16, 16)))
+                .addComponent(valorTotalCarrinho))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCarrinho)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCarrinho)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -129,6 +162,13 @@ public class Carrinho extends javax.swing.JFrame {
         //abre a tela de login
         new Inicio().setVisible(true);
     }//GEN-LAST:event_btnTelaInicioMouseClicked
+
+    private void pagarCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pagarCarrinhoMouseClicked
+        this.dispose();
+        
+        //abre a tela de pagamento
+        new Pagamento(carrinho).setVisible(true);
+    }//GEN-LAST:event_pagarCarrinhoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -159,6 +199,7 @@ public class Carrinho extends javax.swing.JFrame {
     private javax.swing.JButton btnTelaInicio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton pagarCarrinho;
     private javax.swing.JScrollPane panelCarrinho;
     private javax.swing.JLabel tituloCarrinho;
     private javax.swing.JLabel valorTotalCarrinho;

@@ -1,6 +1,7 @@
 package ui;
 import model.*;
 import service.*;
+import dao.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -138,7 +139,9 @@ public class Inicio extends javax.swing.JFrame {
         //criei um jogo hardcoded aqui só pra teste, se vira ai caique
         CarrinhoService service = new CarrinhoService();
         Jogo minecraft = new Jogo("Minecraft", "minecraft Java 21.2", new BigDecimal(99.9));
-        minecraft.setId(1);
+        JogoDAO jogodao = new JogoDAO();
+        jogodao.salvar(minecraft, usuarioLogado);
+        
         service.AdicionarJogoCarrinho(usuarioLogado, minecraft);
 
         jogos = service.BuscarJogosCarrinho(usuarioLogado);

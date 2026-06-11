@@ -56,8 +56,9 @@ public class CarrinhoDAO {
             ResultSet rs = ps.executeQuery();
 
             List<Jogo> jogosNoCarrinho = new ArrayList<Jogo>();
-            Jogo jogoAux = new Jogo();
+            
             while(rs.next()){
+                Jogo jogoAux = new Jogo();
                 jogoAux.setId(rs.getInt("id"));
                 jogoAux.setTitulo((rs.getString("titulo")));
                 jogoAux.setSubtitulo(rs.getString("subtitulo"));
@@ -200,26 +201,42 @@ public class CarrinhoDAO {
     }
 
     //Remove um jogo do carrinho
-    public void RemoverJogoCarrinho(int idJogo, int idCarrinho) {
-        String sql = "DELETE FROM carrinhoitens WHERE idjogo = ? AND idcarrinho = ?";
+    public boolean RemoverJogoCarrinho(CarrinhoModel carrinho, Jogo jogo) {
+        
+        String sqlCarrinhoItens =  "DELETE FROM carrinhoitens WHERE idjogo = ? AND idcarrinho = ?";
+        
+        try (Connection conn = Conexao.obterConexao(); 
+                PreparedStatement stmt = conn.prepareStatement(sqlCarrinhoItens)) {
 
-        try (
-            Connection conn = Conexao.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql)
-        ) {
+            stmt.setInt(1, jogo.getId());
+            stmt.setInt(2, carrinho.getId());
 
-            stmt.setInt(1, idJogo);
-            stmt.setInt(2, idCarrinho);
-
-            int linhasAfetadas = stmt.executeUpdate();
-
-            if (linhasAfetadas > 0) {
-                System.out.println("Jogo removido com sucesso!");
+            if (stmt.executeUpdate() == 0) {
+                return false;
             }
+            
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erro: " + e.getMessage());
+            return false;
         }
+    }
+    
+    //Remove um jogo do carrinho
+    public boolean RemoverTodosJogosCarrinho(CarrinhoModel carrinho, Connection conn) 
+    throws SQLException{
+            
+        String sqlCarrinhoItens =  "DELETE FROM carrinhoitens WHERE 1=1";
+        try(PreparedStatement stmt = conn.prepareStatement(sqlCarrinhoItens)) {
+
+            if (stmt.executeUpdate() == 0) {
+                return false;
+            }
+            
+            return true;
+        }
+                
+
     }
 }
