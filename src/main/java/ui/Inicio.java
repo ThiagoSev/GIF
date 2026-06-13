@@ -1,36 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ui;
 import model.*;
 import service.*;
+import dao.*;
+
+import java.util.List;
+import java.util.ArrayList;
 import java.math.BigDecimal;
-/**
- *
- * @author sever
- */
+import util.Sessao;
+
 public class Inicio extends javax.swing.JFrame {
     
     private Usuario usuarioLogado;
+    private CarrinhoModel carrinhoDoUsuario;
 
-    public Inicio(Usuario usuarioLogado) {
+    public Inicio() {
         initComponents();
-
-        this.usuarioLogado = usuarioLogado;
+        setLocationRelativeTo(null);
+        
+        Sessao usuarioLogadoSingleton = new Sessao();
+        this.usuarioLogado = Sessao.getUsuarioLogado();
+        
+        CarrinhoService carrinoService = new CarrinhoService();
+        
+        //busca o carrinho e deixa-o na memória
+        this.carrinhoDoUsuario = carrinoService.BuscarCarrinho(usuarioLogado);
+        
+        //Se houver itens no carrinho, exibe o botão de carrinho
+        List<Jogo> jogos = carrinoService.BuscarJogosCarrinho(usuarioLogado);
+        btnCarrinho.setVisible(false);
+        if(jogos != null && jogos.size() != 0)
+            btnCarrinho.setVisible(true);
     }
     
     
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inicio.class.getName());
-
-    /**
-     * Creates new form Inicio
-     */
-    public Inicio() {
-        initComponents();
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,46 +47,64 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnJogos = new javax.swing.JButton();
+        btnTesteAddJogoCarrinho = new javax.swing.JButton();
+        btnCarrinho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("PARABÉNS");
-
-        jLabel2.setText("o login funcionou e agora você está na tela inicial 😎");
+        jLabel1.setText("Tela Inicial");
 
         btnJogos.setText("Jogos");
         btnJogos.addActionListener(this::btnJogosActionPerformed);
+
+        btnTesteAddJogoCarrinho.setText("adicionar minecraft no carrinho");
+        btnTesteAddJogoCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTesteAddJogoCarrinhoMouseClicked(evt);
+            }
+        });
+
+        btnCarrinho.setText("carrinho");
+        btnCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCarrinhoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(166, 166, 166)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(127, 127, 127)
+                            .addComponent(btnJogos)
+                            .addGap(34, 34, 34)
+                            .addComponent(btnTesteAddJogoCarrinho)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addComponent(btnJogos)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addComponent(btnCarrinho)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(13, 13, 13)
+                .addComponent(btnCarrinho)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addComponent(btnJogos)
-                .addGap(67, 67, 67))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnJogos)
+                    .addComponent(btnTesteAddJogoCarrinho))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,18 +122,43 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJogosActionPerformed
-if (usuarioLogado != null) {
+        if (usuarioLogado != null) {
 
-    this.dispose();
-    Jogo jogoTeste = new Jogo();
+            this.dispose();
 
-jogoTeste.setTitulo("Minecraft");
-jogoTeste.setDescricao("Jogo de sobrevivência");
-jogoTeste.setPrecoPadrao(new BigDecimal("99.90"));
-
-    new TelaJogos(usuarioLogado, jogoTeste).setVisible(true);
-}// TODO add your handling code here:
+            new TelaJogos(usuarioLogado).setVisible(true);
+        }
     }//GEN-LAST:event_btnJogosActionPerformed
+
+    private void btnTesteAddJogoCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTesteAddJogoCarrinhoMouseClicked
+        this.dispose();
+        
+        List<Jogo> jogos = new ArrayList<Jogo>();
+        
+        //teste de carrinho. Quando o usuário adicionar um jogo no carrinho
+        //deve chamar o método CarrinhoService.AdicionarJogoCarrinho passando o usuario e o jogo selecionado
+        //criei um jogo hardcoded aqui só pra teste, se vira ai caique
+        CarrinhoService service = new CarrinhoService();
+        Jogo minecraft = new Jogo("Minecraft", "minecraft Java 21.2", new BigDecimal(99.9));
+        JogoDAO jogodao = new JogoDAO();
+        jogodao.salvar(minecraft, usuarioLogado);
+        
+        service.AdicionarJogoCarrinho(usuarioLogado, minecraft);
+
+        jogos = service.BuscarJogosCarrinho(usuarioLogado);
+
+        new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
+    }//GEN-LAST:event_btnTesteAddJogoCarrinhoMouseClicked
+
+    private void btnCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarrinhoMouseClicked
+        List<Jogo> jogos = new ArrayList<Jogo>();
+        
+        CarrinhoService service = new CarrinhoService();
+        jogos = service.BuscarJogosCarrinho(usuarioLogado);
+        
+        this.dispose();
+        new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
+    }//GEN-LAST:event_btnCarrinhoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -138,9 +186,10 @@ jogoTeste.setPrecoPadrao(new BigDecimal("99.90"));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCarrinho;
     private javax.swing.JButton btnJogos;
+    private javax.swing.JButton btnTesteAddJogoCarrinho;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

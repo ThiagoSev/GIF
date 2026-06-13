@@ -32,10 +32,8 @@ public class TelaJogos extends javax.swing.JFrame {
         this.usuarioLogado = usuarioLogado;
         this.jogo = jogo;
 
-    btnAdicionar.setVisible(usuarioLogado.isAdministrador());
-    btnRemover.setVisible(usuarioLogado.isAdministrador());
-    exibirJogo(jogo);
-    
+        btnAdicionar.setVisible(usuarioLogado.isAdministrador());
+        btnRemover.setVisible(usuarioLogado.isAdministrador());
     }
     private void exibirJogo(Jogo jogo) {
 
@@ -236,38 +234,33 @@ public class TelaJogos extends javax.swing.JFrame {
 
     dao.salvar(jogo, usuarioLogado);
     }//GEN-LAST:event_btnAdicionarActionPerformed
+                                         
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        try {
 
-    String idTexto =
-            JOptionPane.showInputDialog("ID do jogo");
+            String idTexto = JOptionPane.showInputDialog(this,
+                    "ID do jogo que deseja remover:");
 
-    int id = Integer.parseInt(idTexto);
+            int id = Integer.parseInt(idTexto);
 
-    JogoDAO dao = new JogoDAO();
+            JogoDAO dao = new JogoDAO();
+            dao.remover(id, usuarioLogado);
 
-    dao.remover(id, usuarioLogado);
-        
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao remover: " + e.getMessage());
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-      Usuario admin = new Usuario(
-        1,
-        "admin",
-        "123",
-        true
-    );
-      Jogo jogoTeste = new Jogo();
-
-jogoTeste.setTitulo("Minecraft");
-jogoTeste.setDescricao("Jogo de construção e sobrevivência.");
-jogoTeste.setPrecoPadrao(new BigDecimal("99.90"));
-
     java.awt.EventQueue.invokeLater(() ->
-        new TelaJogos(admin, jogoTeste).setVisible(true)
+        new TelaJogos(new Usuario()).setVisible(true)
     );
     }
 

@@ -4,7 +4,7 @@ public class Usuario {
     private int Id;
     private String Nome;
     private String Senha;
-    private boolean administrador;
+    private boolean Administrador;
     
      public Usuario() {
     }
@@ -13,7 +13,7 @@ public class Usuario {
         this.Id = Id;
         this.Nome = Nome;
         this.Senha = Senha;
-        this.administrador = administrador;
+        this.Administrador = administrador;
     }
 
     public Usuario(String Nome, String Senha){
@@ -46,10 +46,10 @@ public class Usuario {
     }
     
     public boolean isAdministrador() {
-        return administrador;
+        return Administrador;
     }
 
     public void setAdministrador(boolean administrador) {
-        this.administrador = administrador;
+        this.Administrador = administrador;
     }
 }
