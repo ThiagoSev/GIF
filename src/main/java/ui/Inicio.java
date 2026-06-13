@@ -5,6 +5,7 @@
 package ui;
 import model.*;
 import service.*;
+import java.math.BigDecimal;
 /**
  *
  * @author sever
@@ -18,6 +19,8 @@ public class Inicio extends javax.swing.JFrame {
 
         this.usuarioLogado = usuarioLogado;
     }
+    
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inicio.class.getName());
 
@@ -99,8 +102,13 @@ public class Inicio extends javax.swing.JFrame {
 if (usuarioLogado != null) {
 
     this.dispose();
+    Jogo jogoTeste = new Jogo();
 
-    new TelaJogos(usuarioLogado).setVisible(true);
+jogoTeste.setTitulo("Minecraft");
+jogoTeste.setDescricao("Jogo de sobrevivência");
+jogoTeste.setPrecoPadrao(new BigDecimal("99.90"));
+
+    new TelaJogos(usuarioLogado, jogoTeste).setVisible(true);
 }// TODO add your handling code here:
     }//GEN-LAST:event_btnJogosActionPerformed
 

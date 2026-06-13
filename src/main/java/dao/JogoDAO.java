@@ -120,4 +120,36 @@ public class JogoDAO {
 
     return jogos;
 }
+    public Jogo buscarPorId(int id) {
+
+    String sql = "SELECT * FROM jogo WHERE id = ?";
+
+    try (
+        Connection conn = Conexao.obterConexao();
+        PreparedStatement stmt = conn.prepareStatement(sql)
+    ) {
+
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+
+            Jogo jogo = new Jogo();
+
+            jogo.setId(rs.getInt("id"));
+            jogo.setTitulo(rs.getString("titulo"));
+            jogo.setSubtitulo(rs.getString("subtitulo"));
+            jogo.setDescricao(rs.getString("descricao"));
+            jogo.setPrecoPadrao(rs.getBigDecimal("precopadrao"));
+
+            return jogo;
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return null;
+}
 }
