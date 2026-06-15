@@ -16,6 +16,7 @@ public class UsuarioDAO {
         Connection conn = Conexao.obterConexao();
         PreparedStatement ps = conn.prepareStatement(sql)
     ) {
+        
 
         ps.setString(1, usuario.getNome());
         ps.setString(2, usuario.getSenha());

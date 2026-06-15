@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -31,16 +32,88 @@ public class TelaJogos extends javax.swing.JFrame {
         
         this.usuarioLogado = usuarioLogado;
         this.jogo = jogo;
-
-        btnAdicionar.setVisible(usuarioLogado.isAdministrador());
-        btnRemover.setVisible(usuarioLogado.isAdministrador());
+        personalizarTela();
+        exibirJogo(jogo);
     }
+    
+   private void personalizarTela() {
+
+    // Fundo dos painéis
+    jPanel2.setBackground(new java.awt.Color(32, 34, 37));
+    jPanel4.setBackground(new java.awt.Color(32, 34, 37));
+
+    // Título do jogo
+    lblTituloJogo.setFont(
+            new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24)
+    );
+    lblTituloJogo.setForeground(java.awt.Color.WHITE);
+
+    // Descrição
+    txtDescricao.setBackground(
+            new java.awt.Color(47, 49, 54)
+    );
+    txtDescricao.setForeground(java.awt.Color.WHITE);
+
+    // Preço
+    lblPreco.setFont(
+            new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 22)
+    );
+    lblPreco.setForeground(
+            new java.awt.Color(76, 175, 80)
+    );
+
+    // Data de lançamento
+    lbLancamento.setForeground(java.awt.Color.WHITE);
+    lblData.setForeground(
+            new java.awt.Color(180, 180, 180)
+    );
+
+    // Botão comprar
+    btnComprar.setBackground(
+            new java.awt.Color(76, 175, 80)
+    );
+    btnComprar.setForeground(java.awt.Color.WHITE);
+
+    // Botões superiores
+    btnUsuario.setBackground(
+            new java.awt.Color(54, 57, 63)
+    );
+    btnUsuario.setForeground(java.awt.Color.WHITE);
+
+    btnRemover.setBackground(
+            new java.awt.Color(54, 57, 63)
+    );
+    btnRemover.setForeground(java.awt.Color.WHITE);
+
+    // Pesquisa
+    texfPesquisa.setBackground(
+            new java.awt.Color(47, 49, 54)
+    );
+    texfPesquisa.setForeground(java.awt.Color.WHITE);
+
+    // Imagem
+    lblImagem.setBorder(
+            javax.swing.BorderFactory.createLineBorder(
+                    new java.awt.Color(80, 80, 80),
+                    2
+            )
+    );
+    }
+
+    
     private void exibirJogo(Jogo jogo) {
 
     lblTitulo.setText(jogo.getTitulo());
 
     txtDescricao.setText(
             jogo.getDescricao()
+    );
+    
+    DateTimeFormatter formato =
+        DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    lblData.setText(
+            jogo.getDataLancamento().format(formato)
     );
 
     lblPreco.setText(
@@ -57,15 +130,14 @@ public class TelaJogos extends javax.swing.JFrame {
         lblTituloJogo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
-        lblDesenvolvedor = new javax.swing.JLabel();
         lbLancamento = new javax.swing.JLabel();
         lblPreco = new javax.swing.JLabel();
         btnComprar = new javax.swing.JButton();
+        lblData = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         texfPesquisa = new javax.swing.JTextField();
         btnUsuario = new javax.swing.JButton();
-        btnAdicionar = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,13 +156,13 @@ public class TelaJogos extends javax.swing.JFrame {
         txtDescricao.setText("Descriçao");
         jScrollPane1.setViewportView(txtDescricao);
 
-        lblDesenvolvedor.setText("Desenvolvedor");
-
         lbLancamento.setText("Lançamento");
 
         lblPreco.setText("Preço");
 
         btnComprar.setText("Comprar");
+
+        lblData.setText("data");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -98,12 +170,14 @@ public class TelaJogos extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(lblImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDesenvolvedor, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbLancamento)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbLancamento)
+                        .addGap(26, 26, 26)
+                        .addComponent(lblData))
                     .addComponent(lblTituloJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -122,11 +196,11 @@ public class TelaJogos extends javax.swing.JFrame {
                         .addComponent(lblTituloJogo)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDesenvolvedor)
                         .addGap(18, 18, 18)
-                        .addComponent(lbLancamento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbLancamento)
+                            .addComponent(lblData))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(14, Short.MAX_VALUE)
                         .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,9 +221,6 @@ public class TelaJogos extends javax.swing.JFrame {
 
         btnUsuario.setText("Usuario");
 
-        btnAdicionar.setText("Adicionar");
-        btnAdicionar.addActionListener(this::btnAdicionarActionPerformed);
-
         btnRemover.setText("Excluir");
         btnRemover.addActionListener(this::btnRemoverActionPerformed);
 
@@ -160,9 +231,7 @@ public class TelaJogos extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
-                .addComponent(btnAdicionar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRemover)
                 .addGap(18, 18, 18)
                 .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +247,6 @@ public class TelaJogos extends javax.swing.JFrame {
                     .addComponent(lblTitulo)
                     .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuario)
-                    .addComponent(btnAdicionar)
                     .addComponent(btnRemover))
                 .addGap(14, 14, 14))
         );
@@ -210,30 +278,6 @@ public class TelaJogos extends javax.swing.JFrame {
     private void texfPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texfPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_texfPesquisaActionPerformed
-
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-    String titulo =
-            JOptionPane.showInputDialog("Título");
-
-    String descricao =
-            JOptionPane.showInputDialog("Descrição");
-
-    String preco =
-            JOptionPane.showInputDialog("Preço");
-
-    Jogo jogo = new Jogo();
-
-    jogo.setTitulo(titulo);
-    jogo.setDescricao(descricao);
-
-    jogo.setPrecoPadrao(
-            new BigDecimal(preco)
-    );
-
-    JogoDAO dao = new JogoDAO();
-
-    dao.salvar(jogo, usuarioLogado);
-    }//GEN-LAST:event_btnAdicionarActionPerformed
                                          
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
@@ -258,14 +302,10 @@ public class TelaJogos extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-    java.awt.EventQueue.invokeLater(() ->
-        new TelaJogos(new Usuario()).setVisible(true)
-    );
-    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnComprar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnUsuario;
@@ -273,7 +313,7 @@ public class TelaJogos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbLancamento;
-    private javax.swing.JLabel lblDesenvolvedor;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblImagem;
     private javax.swing.JLabel lblPreco;
     private javax.swing.JLabel lblTitulo;

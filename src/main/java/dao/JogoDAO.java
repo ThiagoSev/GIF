@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.*;
 import util.Conexao;
+import java.sql.Timestamp;
+
 
 public class JogoDAO {
     public boolean salvar(Jogo jogo, Usuario usuario) {
@@ -137,6 +139,13 @@ public class JogoDAO {
             jogo.setSubtitulo(rs.getString("subtitulo"));
             jogo.setDescricao(rs.getString("descricao"));
             jogo.setPrecoPadrao(rs.getBigDecimal("precopadrao"));
+            Timestamp timestamp = rs.getTimestamp("datalancamento");
+
+        if (timestamp != null) {
+            jogo.setDataLancamento(
+                timestamp.toLocalDateTime()
+            );
+        }
 
             return jogo;
         }
