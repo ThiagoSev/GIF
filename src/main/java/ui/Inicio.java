@@ -6,8 +6,8 @@ import dao.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
+import javax.swing.JOptionPane;
 import util.Sessao;
-
 
 public class Inicio extends javax.swing.JFrame {
     
@@ -33,6 +33,8 @@ public class Inicio extends javax.swing.JFrame {
             btnCarrinho.setVisible(true);
     }
     
+    
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inicio.class.getName());
     
     /**
@@ -49,6 +51,7 @@ public class Inicio extends javax.swing.JFrame {
         btnJogos = new javax.swing.JButton();
         btnTesteAddJogoCarrinho = new javax.swing.JButton();
         btnCarrinho = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +75,9 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        btnSalvar.setText("Adicionar jogo");
+        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -84,9 +90,12 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(127, 127, 127)
-                            .addComponent(btnJogos)
-                            .addGap(34, 34, 34)
-                            .addComponent(btnTesteAddJogoCarrinho)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnSalvar)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnJogos)
+                                    .addGap(34, 34, 34)
+                                    .addComponent(btnTesteAddJogoCarrinho)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(btnCarrinho)))
@@ -103,7 +112,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnJogos)
                     .addComponent(btnTesteAddJogoCarrinho))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,11 +133,20 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJogosActionPerformed
         if (usuarioLogado != null) {
+            /**
+             * teste para abrir a tela de jogos com o banco
+             */
+        JogoDAO dao = new JogoDAO();
+
+        Jogo jogo = dao.buscarPorId(2);
+
+        if (jogo != null) {
 
             this.dispose();
 
-            new TelaJogos(usuarioLogado).setVisible(true);
+            new TelaJogos(usuarioLogado, jogo).setVisible(true);
         }
+    }
     }//GEN-LAST:event_btnJogosActionPerformed
 
     private void btnTesteAddJogoCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTesteAddJogoCarrinhoMouseClicked
@@ -159,6 +179,46 @@ public class Inicio extends javax.swing.JFrame {
         new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
     }//GEN-LAST:event_btnCarrinhoMouseClicked
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+     String titulo =
+            JOptionPane.showInputDialog("Título");
+     
+
+    String descricao =
+            JOptionPane.showInputDialog("Descrição");
+    
+     
+      String lancamento =
+            JOptionPane.showInputDialog("Lancamento");
+
+    String preco =
+            JOptionPane.showInputDialog("Preço");
+
+  Jogo jogo = new Jogo();
+
+    jogo.setTitulo(titulo);
+    jogo.setDescricao(descricao);
+
+    jogo.setSubtitulo("");
+
+    jogo.setPrecoPadrao(new BigDecimal(preco));
+
+    jogo.setPrecoPromocao(null);
+
+    jogo.setEstaEmPromocao(false);
+
+    jogo.setDataLancamento(
+        java.time.LocalDateTime.parse(lancamento)
+    );
+
+    jogo.setIdDistribuidor(1); // id existente no banco
+    jogo.setIdCriador(usuarioLogado.getId());
+    
+    JogoDAO dao = new JogoDAO();
+
+    dao.salvar(jogo, usuarioLogado);
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -187,6 +247,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCarrinho;
     private javax.swing.JButton btnJogos;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnTesteAddJogoCarrinho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
