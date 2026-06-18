@@ -22,22 +22,22 @@ public class Jogo {
     private LocalDateTime dataLancamento;
     private int idDistribuidor;
     private int idCriador;
+    private String imagem;
     
     public Jogo() {
     }
 
-    //contrutor com os elementos opcionais (sem o NOT NULL no banco)
-    public Jogo(String titulo, String subtitulo, BigDecimal precoPadrao) {
+    public Jogo(String titulo, String descricao, BigDecimal precoPadrao) {
 
         this.titulo = titulo;
-        this.subtitulo = subtitulo;
+        this.descricao = descricao;
         this.precoPadrao = precoPadrao;
     }
     
     public Jogo(String titulo, String subtitulo, String descricao,
                 BigDecimal precoPadrao, BigDecimal precoPromocao,
                 boolean estaEmPromocao, LocalDateTime dataLancamento,
-                int idDistribuidor, int idCriador) {
+                int idDistribuidor, int idCriador, String imagem) {
 
         this.titulo = titulo;
         this.subtitulo = subtitulo;
@@ -48,6 +48,7 @@ public class Jogo {
         this.dataLancamento = dataLancamento;
         this.idDistribuidor = idDistribuidor;
         this.idCriador = idCriador;
+        this.imagem = imagem;
     }
     
     public int getId() {
@@ -128,5 +129,13 @@ public class Jogo {
 
     public void setIdCriador(int idCriador) {
         this.idCriador = idCriador;
+    }
+    
+       public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 import util.Sessao;
+import javax.swing.JFileChooser;
+import java.io.File;
 
 public class Inicio extends javax.swing.JFrame {
     
@@ -138,7 +140,7 @@ public class Inicio extends javax.swing.JFrame {
              */
         JogoDAO dao = new JogoDAO();
 
-        Jogo jogo = dao.buscarPorId(2);
+        Jogo jogo = dao.buscarPorId(5);
 
         if (jogo != null) {
 
@@ -193,6 +195,19 @@ public class Inicio extends javax.swing.JFrame {
 
     String preco =
             JOptionPane.showInputDialog("Preço");
+    
+    JFileChooser chooser = new JFileChooser();
+
+    int resultado = chooser.showOpenDialog(this);
+
+    String caminhoImagem = "";
+
+    if (resultado == JFileChooser.APPROVE_OPTION) {
+
+        File arquivo = chooser.getSelectedFile();
+
+        caminhoImagem = arquivo.getAbsolutePath();
+    }
 
   Jogo jogo = new Jogo();
 
@@ -206,9 +221,12 @@ public class Inicio extends javax.swing.JFrame {
     jogo.setPrecoPromocao(null);
 
     jogo.setEstaEmPromocao(false);
+    
+     jogo.setImagem(caminhoImagem);
 
     jogo.setDataLancamento(
         java.time.LocalDateTime.parse(lancamento)
+    
     );
 
     jogo.setIdDistribuidor(1); // id existente no banco
