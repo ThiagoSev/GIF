@@ -47,7 +47,7 @@ public class JogoDAO {
             stmt.setInt(8, jogo.getIdDistribuidor());
             stmt.setInt(9, jogo.getIdCriador());
             stmt.setString(10, jogo.getImagem());
-
+            
             stmt.executeUpdate();
 
             System.out.println("Jogo salvo com sucesso!");
@@ -142,7 +142,7 @@ public class JogoDAO {
             jogo.setPrecoPadrao(rs.getBigDecimal("precopadrao"));
             Timestamp timestamp = rs.getTimestamp("datalancamento");
             jogo.setImagem(rs.getString("imagem"));
-
+            
         if (timestamp != null) {
             jogo.setDataLancamento(
                 timestamp.toLocalDateTime()

@@ -1,6 +1,17 @@
 --Dados base do sistema
 
 BEGIN TRANSACTION;
+
+--limpa os dados antigos
+TRUNCATE TABLE usuario CASCADE RESTART IDENTITY;
+TRUNCATE TABLE distribuidor CASCADE RESTART IDENTITY;
+TRUNCATE TABLE genero CASCADE RESTART IDENTITY;
+TRUNCATE TABLE jogo CASCADE RESTART IDENTITY;
+TRUNCATE TABLE generoJogo CASCADE RESTART IDENTITY;
+TRUNCATE TABLE bibliotecajogos CASCADE RESTART IDENTITY;
+TRUNCATE TABLE carrinho CASCADE RESTART IDENTITY;
+TRUNCATE TABLE carrinhoitens CASCADE RESTART IDENTITY;
+
 --usuário padrão para o desenvolvimento
 insert into usuario(nome, apelido, senha, datanascimento, administrador) 
 VALUES ('a','a','a',null, true);
@@ -19,11 +30,11 @@ VALUES
     49.90, 19.90,true,
     '2016-06-29',
     1, 1,
-    'inside.jpg'
+    'imagens/jogos/inside.jpg'
 ),
 (
-    'Hollow Knight',
-    'Journey through Hallownest',
+    'Hollow Knight - Silksong',
+    'Venture into a kingdom ruled by silk and songs!',
     'An epic action-adventure through a vast ruined kingdom.',
     59.90,
     NULL,
@@ -31,7 +42,7 @@ VALUES
     '2017-02-24',
     1,
     1,
-    'hollow-knight.jpg'
+    'imagens/jogos/silksong.jpeg'
 ),
 (
     'Celeste',
@@ -43,7 +54,7 @@ VALUES
     '2018-01-25',
     1,
     1,
-    'celeste.jpg'
+    'imagens/jogos/celeste.jpg'
 ),
 (
     'Stardew Valley',
@@ -55,7 +66,7 @@ VALUES
     '2016-02-26',
     1,
     1,
-    'stardew-valley.jpg'
+    'imagens/jogos/stardewValley.jpg'
 ),
 (
     'Dead Cells',
@@ -67,7 +78,7 @@ VALUES
     '2018-08-07',
     1,
     1,
-    'dead-cells.jpg'
+    'imagens/jogos/DeadCells.jpg'
 ),
 (
     'Cuphead',
@@ -79,19 +90,7 @@ VALUES
     '2017-09-29',
     1,
     1,
-    'cuphead.jpg'
-),
-(
-    'Undertale',
-    'The RPG where nobody has to die',
-    'Choose between violence and mercy in a unique RPG adventure.',
-    19.99,
-    9.99,
-    true,
-    '2015-09-15',
-    1,
-    1,
-    'undertale.jpg'
+    'imagens/jogos/cuphead.jpg'
 );
 
 COMMIT TRANSACTION;
