@@ -16,6 +16,6 @@ public class UsuarioService {
     }
 
     public boolean CadastrarUsuario(Usuario usuario) {
-        return dao.Cadastrar(usuario);
+        return usuarioDAO.Cadastrar(usuario);
     }
 }
