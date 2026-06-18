@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 /**
  *
@@ -102,8 +104,9 @@ public class TelaJogos extends javax.swing.JFrame {
 
     
     private void exibirJogo(Jogo jogo) {
-
-    lblTitulo.setText(jogo.getTitulo());
+        
+    lblTitulo.setText("GIF");
+    lblTituloJogo.setText(jogo.getTitulo());
 
     txtDescricao.setText(
             jogo.getDescricao()
@@ -118,6 +121,21 @@ public class TelaJogos extends javax.swing.JFrame {
 
     lblPreco.setText(
             "R$ " + jogo.getPrecoPadrao()
+    );
+    ImageIcon icon = new ImageIcon(
+            jogo.getImagem()
+    );
+
+    Image img = icon.getImage();
+
+    Image imgRedimensionada = img.getScaledInstance(
+            lblImagem.getWidth(),
+            lblImagem.getHeight(),
+            Image.SCALE_SMOOTH
+    );
+
+    lblImagem.setIcon(
+            new ImageIcon(imgRedimensionada)
     );
 }
 
@@ -145,7 +163,6 @@ public class TelaJogos extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblImagem.setText("Imagem Jogo");
         lblImagem.setToolTipText("");
         lblImagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -161,6 +178,7 @@ public class TelaJogos extends javax.swing.JFrame {
         lblPreco.setText("Preço");
 
         btnComprar.setText("Comprar");
+        btnComprar.addActionListener(this::btnComprarActionPerformed);
 
         lblData.setText("data");
 
@@ -235,9 +253,9 @@ public class TelaJogos extends javax.swing.JFrame {
                 .addComponent(btnRemover)
                 .addGap(18, 18, 18)
                 .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(btnUsuario)
-                .addGap(38, 38, 38))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,6 +316,30 @@ public class TelaJogos extends javax.swing.JFrame {
                     "Erro ao remover: " + e.getMessage());
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+    
+       CarrinhoService service = new CarrinhoService();
+
+            service.AdicionarJogoCarrinho(
+            usuarioLogado,
+            jogo
+    );
+
+
+        List<Jogo> jogos =
+                service.BuscarJogosCarrinho(usuarioLogado);
+
+        CarrinhoModel carrinho =
+                service.BuscarCarrinho(usuarioLogado);
+
+        this.dispose();
+
+        new Carrinho(
+                jogos,
+                carrinho
+        ).setVisible(true);
+    }//GEN-LAST:event_btnComprarActionPerformed
 
     /**
      * @param args the command line arguments

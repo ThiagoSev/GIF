@@ -60,9 +60,13 @@ CREATE TABLE jogo
     datalancamento timestamp without time zone,
     iddistribuidor int,
     idcriador int,
+    imagem VARCHAR(255),
     FOREIGN KEY (iddistribuidor) REFERENCES distribuidor ON DELETE CASCADE,
     FOREIGN KEY (idcriador) REFERENCES usuario ON DELETE CASCADE
 );
+--Se ja tiver criado o banco só fazer: ALTER TABLE jogo
+ADD COLUMN imagem VARCHAR(255) para adicionar imagem;
+
 
 CREATE TABLE generoJogo(
     idgenero int,

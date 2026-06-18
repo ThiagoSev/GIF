@@ -23,8 +23,8 @@ public class JogoDAO {
             INSERT INTO jogo
             (titulo, subtitulo, descricao, precopadrao,
              precopromocao, estaempromocao,
-             datalancamento, iddistribuidor, idcriador)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+             datalancamento, iddistribuidor, idcriador, imagem)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
             
         try (
@@ -46,6 +46,7 @@ public class JogoDAO {
 
             stmt.setInt(8, jogo.getIdDistribuidor());
             stmt.setInt(9, jogo.getIdCriador());
+            stmt.setString(10, jogo.getImagem());
 
             stmt.executeUpdate();
 
@@ -140,6 +141,7 @@ public class JogoDAO {
             jogo.setDescricao(rs.getString("descricao"));
             jogo.setPrecoPadrao(rs.getBigDecimal("precopadrao"));
             Timestamp timestamp = rs.getTimestamp("datalancamento");
+            jogo.setImagem(rs.getString("imagem"));
 
         if (timestamp != null) {
             jogo.setDataLancamento(
