@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -49,7 +50,7 @@ public class CadastroForm extends JFrame {
 
     public CadastroForm() {
         setTitle("GIF - Cadastro");
-        setSize(1180, 720);
+        setSize(1180, 820);
         setMinimumSize(new Dimension(900, 620));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -71,96 +72,57 @@ public class CadastroForm extends JFrame {
         topo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, BORDER));
         topo.setPreferredSize(new Dimension(0, 64));
 
-        JPanel esquerda = new JPanel();
-        esquerda.setOpaque(false);
-        esquerda.setBorder(new EmptyBorder(0, 88, 0, 0));
-        esquerda.setLayout(new BoxLayout(esquerda, BoxLayout.X_AXIS));
-        esquerda.add(new GameIcon(34, GREEN));
-        esquerda.add(Box.createHorizontalStrut(9));
-        esquerda.add(label("GIF", 24, Font.BOLD, WHITE));
-        esquerda.add(Box.createHorizontalStrut(30));
-        esquerda.add(nav("Loja", false));
-        esquerda.add(Box.createHorizontalStrut(24));
-        esquerda.add(nav("Biblioteca", false));
-        esquerda.add(Box.createHorizontalStrut(24));
-        esquerda.add(nav("Conta", true));
+        JPanel logo = new JPanel();
+        logo.setOpaque(false);
+        logo.setBorder(new EmptyBorder(0, 88, 0, 0));
+        logo.setLayout(new BoxLayout(logo, BoxLayout.X_AXIS));
+        logo.add(new GameIcon(34, GREEN));
+        logo.add(Box.createHorizontalStrut(9));
+        logo.add(label("GIF", 24, Font.BOLD, WHITE));
 
-        JPanel direita = new JPanel();
-        direita.setOpaque(false);
-        direita.setBorder(new EmptyBorder(0, 0, 0, 88));
-        direita.setLayout(new BoxLayout(direita, BoxLayout.X_AXIS));
-        JTextField busca = campoTexto("  Buscar jogos...");
-        busca.setPreferredSize(new Dimension(255, 36));
-        busca.setMaximumSize(new Dimension(255, 36));
-        direita.add(busca);
-        direita.add(Box.createHorizontalStrut(24));
-        direita.add(label("Carrinho", 13, Font.PLAIN, MUTED));
-        direita.add(Box.createHorizontalStrut(18));
-        direita.add(label("Perfil", 13, Font.PLAIN, MUTED));
-
-        topo.add(esquerda, BorderLayout.WEST);
-        topo.add(direita, BorderLayout.EAST);
+        topo.add(logo, BorderLayout.WEST);
         return topo;
     }
 
-    private JLabel nav(String texto, boolean ativo) {
-        JLabel label = label(texto, 13, Font.BOLD, ativo ? WHITE : MUTED);
-        label.setBorder(new EmptyBorder(22, 0, ativo ? 18 : 21, 0));
-        if (ativo) {
-            label.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createMatteBorder(0, 0, 3, 0, GREEN),
-                    new EmptyBorder(22, 0, 15, 0)));
-        }
-        return label;
-    }
-
     private JPanel criarCentro() {
-        JPanel faixa = new JPanel(new GridBagLayout());
+        JPanel faixa = new JPanel();
+        faixa.setLayout(new BoxLayout(faixa, BoxLayout.Y_AXIS));
         faixa.setBackground(BACKGROUND);
-        faixa.setBorder(new EmptyBorder(34, 0, 34, 0));
+        faixa.setBorder(new EmptyBorder(26, 0, 34, 0));
 
-        JPanel conteudo = new JPanel(new BorderLayout(32, 0));
-        conteudo.setOpaque(false);
-        conteudo.setPreferredSize(new Dimension(890, 470));
+        JPanel formulario = criarFormulario();
+        formulario.setAlignmentX(CENTER_ALIGNMENT);
+        faixa.add(formulario);
 
-        JPanel colunaPrincipal = new JPanel(new BorderLayout(0, 22));
-        colunaPrincipal.setOpaque(false);
-        colunaPrincipal.add(label("Criar Conta", 30, Font.BOLD, WHITE), BorderLayout.NORTH);
-        colunaPrincipal.add(criarFormulario(), BorderLayout.CENTER);
+        JScrollPane scroll = new JScrollPane(faixa);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.setBackground(BACKGROUND);
+        scroll.getViewport().setBackground(BACKGROUND);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        JPanel lateral = new JPanel();
-        lateral.setOpaque(false);
-        lateral.setLayout(new BoxLayout(lateral, BoxLayout.Y_AXIS));
-        lateral.add(criarCarteira());
-        lateral.add(Box.createVerticalStrut(24));
-        lateral.add(criarSeguranca());
-
-        conteudo.add(colunaPrincipal, BorderLayout.CENTER);
-        conteudo.add(lateral, BorderLayout.EAST);
-        faixa.add(conteudo);
-        return faixa;
+        JPanel container = new JPanel(new BorderLayout());
+        container.setBackground(BACKGROUND);
+        container.add(scroll, BorderLayout.CENTER);
+        return container;
     }
 
     private JPanel criarFormulario() {
         RoundedPanel card = new RoundedPanel(CARD, BORDER, 8);
-        card.setLayout(new BorderLayout(0, 20));
-        card.setBorder(new EmptyBorder(26, 26, 26, 26));
-
-        JPanel perfil = new JPanel(new BorderLayout(24, 0));
-        perfil.setOpaque(false);
-        perfil.add(new Avatar(), BorderLayout.WEST);
+        card.setLayout(new BorderLayout(0, 24));
+        card.setBorder(new EmptyBorder(30, 36, 30, 36));
 
         JPanel titulo = new JPanel();
         titulo.setOpaque(false);
         titulo.setLayout(new BoxLayout(titulo, BoxLayout.Y_AXIS));
-        titulo.add(label("Novo jogador GIF", 25, Font.BOLD, WHITE));
+        JLabel tituloPrincipal = label("Criar Conta", 30, Font.BOLD, WHITE);
+        tituloPrincipal.setAlignmentX(LEFT_ALIGNMENT);
+        titulo.add(tituloPrincipal);
         titulo.add(Box.createVerticalStrut(4));
-        titulo.add(label("Preencha seus dados para entrar na plataforma", 14, Font.PLAIN, MUTED));
-        JLabel nivel = label("Nivel 1", 12, Font.BOLD, GREEN);
-        nivel.setBorder(new EmptyBorder(8, 12, 8, 12));
-        titulo.add(Box.createVerticalStrut(8));
-        titulo.add(nivel);
-        perfil.add(titulo, BorderLayout.CENTER);
+        JLabel subtitulo = label("Preencha seus dados para entrar na plataforma GIF", 14, Font.PLAIN, MUTED);
+        subtitulo.setAlignmentX(LEFT_ALIGNMENT);
+        titulo.add(subtitulo);
 
         JPanel linha = new JPanel();
         linha.setBackground(BORDER);
@@ -201,8 +163,12 @@ public class CadastroForm extends JFrame {
         corpo.add(campos, BorderLayout.CENTER);
         corpo.add(acoes, BorderLayout.SOUTH);
 
-        card.add(perfil, BorderLayout.NORTH);
+        card.add(titulo, BorderLayout.NORTH);
         card.add(corpo, BorderLayout.CENTER);
+
+        Dimension tamanho = card.getPreferredSize();
+        card.setPreferredSize(new Dimension(720, tamanho.height));
+        card.setMaximumSize(new Dimension(720, tamanho.height));
         return card;
     }
 
@@ -213,41 +179,13 @@ public class CadastroForm extends JFrame {
         painel.add(campo, gbc);
     }
 
-    private JPanel criarCarteira() {
-        RoundedPanel card = new RoundedPanel(CARD, BORDER, 8);
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setPreferredSize(new Dimension(278, 180));
-        card.setMaximumSize(new Dimension(278, 180));
-        card.setBorder(new EmptyBorder(26, 26, 24, 26));
-        card.add(label("Carteira GIF", 17, Font.BOLD, WHITE));
-        card.add(Box.createVerticalStrut(20));
-        card.add(label("R$ 0,00", 30, Font.BOLD, GREEN));
-        card.add(Box.createVerticalStrut(16));
-        card.add(botaoPrimario("Adicionar Fundos"));
-        return card;
-    }
-
-    private JPanel criarSeguranca() {
-        RoundedPanel card = new RoundedPanel(CARD, BORDER, 8);
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setPreferredSize(new Dimension(278, 180));
-        card.setMaximumSize(new Dimension(278, 180));
-        card.setBorder(new EmptyBorder(26, 26, 24, 26));
-        card.add(label("Seguranca", 17, Font.BOLD, WHITE));
-        card.add(Box.createVerticalStrut(18));
-        card.add(botaoSecundario("Alterar Senha"));
-        card.add(Box.createVerticalStrut(16));
-        card.add(botaoSecundario("Autenticacao de 2 Fatores"));
-        return card;
-    }
-
     private JPanel criarRodape() {
         JPanel rodape = new JPanel(new BorderLayout());
         rodape.setBackground(HEADER);
         rodape.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER),
-                new EmptyBorder(22, 92, 22, 92)));
-        rodape.setPreferredSize(new Dimension(0, 88));
+                new EmptyBorder(10, 92, 10, 92)));
+        rodape.setPreferredSize(new Dimension(0, 52));
 
         JPanel marca = new JPanel();
         marca.setOpaque(false);
