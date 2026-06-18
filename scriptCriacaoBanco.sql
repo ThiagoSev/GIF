@@ -1,17 +1,12 @@
 --CREATE DATABASE gif;
 
---usuario
-CREATE ROLE gif
-LOGIN
-PASSWORD 'gif';
+--usuario (tire os comentários caso ainda não tenha sido criado)
 
-GRANT ALL PRIVILEGES
-ON ALL TABLES IN SCHEMA public
-TO gif;
+--CREATE ROLE gif
+--LOGIN
+--PASSWORD 'gif';
 
-GRANT ALL PRIVILEGES
-ON ALL SEQUENCES IN SCHEMA public
-TO gif;
+
 
 
 --tabelas
@@ -64,9 +59,6 @@ CREATE TABLE jogo
     FOREIGN KEY (iddistribuidor) REFERENCES distribuidor ON DELETE CASCADE,
     FOREIGN KEY (idcriador) REFERENCES usuario ON DELETE CASCADE
 );
---Se ja tiver criado o banco só fazer: ALTER TABLE jogo
-ADD COLUMN imagem VARCHAR(255) para adicionar imagem;
-
 
 CREATE TABLE generoJogo(
     idgenero int,
@@ -103,5 +95,11 @@ CREATE TABLE carrinhoitens(
 
 );
 
-insert into usuario(nome, apelido, senha, datanascimento) 
-VALUES ('a','a','a',null)
+--dá as permissões para o usuario criado
+GRANT ALL PRIVILEGES
+ON ALL TABLES IN SCHEMA public
+TO gif;
+
+GRANT ALL PRIVILEGES
+ON ALL SEQUENCES IN SCHEMA public
+TO gif;

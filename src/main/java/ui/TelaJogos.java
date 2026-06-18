@@ -31,6 +31,7 @@ public class TelaJogos extends javax.swing.JFrame {
      */
     public TelaJogos(Usuario usuarioLogado, Jogo jogo) {
         initComponents();
+        setLocationRelativeTo(null);
         
         this.usuarioLogado = usuarioLogado;
         this.jogo = jogo;
