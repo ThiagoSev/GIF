@@ -23,8 +23,8 @@ public class JogoDAO {
             INSERT INTO jogo
             (titulo, subtitulo, descricao, precopadrao,
              precopromocao, estaempromocao,
-             datalancamento, iddistribuidor, idcriador, imagem)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             datalancamento, iddistribuidor, idcriador)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
             
         try (
