@@ -10,7 +10,12 @@ public class Conexao {
     static final String senha = "gif"; 
 
     public static Connection obterConexao()
-        throws SQLException {
-            return DriverManager.getConnection(url, usuario, senha);
+            throws SQLException {
+        return DriverManager.getConnection(url, usuario, senha);
+    }
+
+    public static Connection getConnection()
+            throws SQLException {
+        return obterConexao();
     }
 }
