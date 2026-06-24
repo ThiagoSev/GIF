@@ -29,6 +29,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -64,7 +65,7 @@ public class Inicio extends JFrame {
     private void configurarJanela() {
         setTitle("GIF - Loja");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(1050, 720));
+        setMinimumSize(new Dimension(960, 720));
         setSize(1220, 780);
         setLocationRelativeTo(null);
     }
@@ -149,13 +150,15 @@ public class Inicio extends JFrame {
         vitrinePanel = new JPanel();
         vitrinePanel.setLayout(new BoxLayout(vitrinePanel, BoxLayout.Y_AXIS));
         vitrinePanel.setBackground(FUNDO);
-        vitrinePanel.setBorder(BorderFactory.createEmptyBorder(26, 54, 40, 54));
+        vitrinePanel.setBorder(BorderFactory.createEmptyBorder(26, 32, 40, 32));
         vitrinePanel.add(criarDestaque());
         vitrinePanel.add(Box.createVerticalStrut(34));
         vitrinePanel.add(criarOfertas());
 
         JScrollPane scroll = new JScrollPane(vitrinePanel);
         scroll.setBorder(null);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.getVerticalScrollBar().setUnitIncrement(18);
         scroll.getViewport().setBackground(FUNDO);
         raiz.add(scroll, BorderLayout.CENTER);
 
@@ -236,11 +239,12 @@ public class Inicio extends JFrame {
         JPanel painel = new JPanel(new BorderLayout(18, 0));
         painel.setBackground(PAINEL);
         painel.setBorder(BorderFactory.createLineBorder(BORDA));
-        painel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 380));
+        painel.setMaximumSize(new Dimension(860, 380));
+        painel.setAlignmentX(CENTER_ALIGNMENT);
 
         ImagePanel hero = new ImagePanel(principal.getImagem(), true);
         hero.setLayout(null);
-        hero.setPreferredSize(new Dimension(760, 380));
+        hero.setPreferredSize(new Dimension(560, 380));
 
         JLabel titulo = new JLabel("<html>" + principal.getTitulo().replaceFirst(" ", "<br>") + "</html>");
         titulo.setForeground(Color.WHITE);
@@ -284,7 +288,7 @@ public class Inicio extends JFrame {
 
     private JPanel criarMiniCard(Jogo jogo, boolean ativo) {
         ImagePanel card = new ImagePanel(jogo.getImagem(), true);
-        card.setPreferredSize(new Dimension(330, 100));
+        card.setPreferredSize(new Dimension(240, 100));
         card.setBorder(BorderFactory.createLineBorder(ativo ? VERDE : PAINEL, ativo ? 2 : 1));
         card.setLayout(new BorderLayout());
         card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -307,11 +311,14 @@ public class Inicio extends JFrame {
         JPanel secao = new JPanel();
         secao.setOpaque(false);
         secao.setLayout(new BoxLayout(secao, BoxLayout.Y_AXIS));
+        secao.setMaximumSize(new Dimension(860, 980));
+        secao.setAlignmentX(CENTER_ALIGNMENT);
 
         JPanel tituloLinha = new JPanel();
         tituloLinha.setOpaque(false);
         tituloLinha.setLayout(new BoxLayout(tituloLinha, BoxLayout.X_AXIS));
-        tituloLinha.setAlignmentX(LEFT_ALIGNMENT);
+        tituloLinha.setAlignmentX(CENTER_ALIGNMENT);
+        tituloLinha.setMaximumSize(new Dimension(860, 36));
 
         JLabel titulo = new JLabel("Ofertas Especiais");
         titulo.setForeground(Color.WHITE);
@@ -325,10 +332,10 @@ public class Inicio extends JFrame {
         tituloLinha.add(tempo);
         tituloLinha.add(Box.createHorizontalGlue());
 
-        JPanel grid = new JPanel(new GridLayout(0, 3, 24, 24));
+        JPanel grid = new JPanel(new GridLayout(0, 2, 24, 24));
         grid.setOpaque(false);
-        grid.setAlignmentX(LEFT_ALIGNMENT);
-        grid.setMaximumSize(new Dimension(Integer.MAX_VALUE, 320));
+        grid.setAlignmentX(CENTER_ALIGNMENT);
+        grid.setMaximumSize(new Dimension(860, 980));
 
         for (int i = 1; i < jogosDaLoja.size(); i++) {
             grid.add(criarCardOferta(jogosDaLoja.get(i), i % 2 == 0 ? "-25%" : "-50%"));
@@ -347,7 +354,7 @@ public class Inicio extends JFrame {
         card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         ImagePanel imagem = new ImagePanel(jogo.getImagem(), false);
-        imagem.setPreferredSize(new Dimension(310, 170));
+        imagem.setPreferredSize(new Dimension(390, 250));
         imagem.setLayout(null);
 
         JLabel selo = new JLabel(desconto, SwingConstants.CENTER);
