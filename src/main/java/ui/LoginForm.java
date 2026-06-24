@@ -5,10 +5,9 @@
 package ui;
 
 import service.*;
-/**
- *
- * @author sever
- */
+import model.*;
+import util.Sessao;
+
 public class LoginForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
@@ -18,6 +17,7 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -113,15 +113,23 @@ public class LoginForm extends javax.swing.JFrame {
     
     private void btnLogarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogarMouseClicked
         // chama o serviço de usuário
-        UsuarioService usuarioService = new UsuarioService(); 
-        var result = usuarioService.LogarSistema(jTFNomeUsuario.getText(), new String(jPSSenhaUsuario.getPassword()));
-        
-        //se o usuário existir, abre a tela principal
-        if(result){
+        UsuarioService usuarioService = new UsuarioService();
+
+        Usuario usuarioLogado = usuarioService.LogarSistema(
+            jTFNomeUsuario.getText(),
+            new String(jPSSenhaUsuario.getPassword())
+        );
+
+        if (usuarioLogado != null) {
+            Sessao Sessao = new Sessao();
+            Sessao.setUsuarioLogado(usuarioLogado);
+            
             this.dispose();
             new Inicio().setVisible(true);
-        }
-        else{
+
+        } 
+    
+        else {
             jLMsgErro.setText("Erro ao fazer login");
         }
     }//GEN-LAST:event_btnLogarMouseClicked

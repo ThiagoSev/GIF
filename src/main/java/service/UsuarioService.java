@@ -7,11 +7,14 @@ import model.*;
 public class UsuarioService {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    public boolean LogarSistema(String nomeUsuario, String senhaUsuario){
-        if((nomeUsuario == null || nomeUsuario == "") || (senhaUsuario == null || senhaUsuario == "")){
-            return false;
+    public Usuario LogarSistema(String nomeUsuario, String senhaUsuario){
+
+        if ((nomeUsuario == null || nomeUsuario.isEmpty()) ||
+            (senhaUsuario == null || senhaUsuario.isEmpty())) {
+            
+            return null;
         }
-        
+
         return usuarioDAO.BuscarUsuario(new Usuario(nomeUsuario, senhaUsuario));
     }
 

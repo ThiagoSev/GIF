@@ -1,0 +1,15 @@
+package model;
+
+import java.time.LocalDateTime;
+
+public class CarrinhoModel {
+    public int id;
+    public int idusuario;
+    public LocalDateTime datacriacao;
+    public LocalDateTime ultimaatualizacao;
+
+    public int getId() {
+        return id;
+    }
+    
+}
