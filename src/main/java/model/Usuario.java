@@ -10,6 +10,10 @@ public class Usuario {
     private Date DataNascimento;
     private boolean Administrador;
     
+    public Usuario(){
+        
+    }
+
     public Usuario(int Id, String Nome, String Senha, boolean administrador){
         this.Id = Id;
         this.Nome = Nome;
