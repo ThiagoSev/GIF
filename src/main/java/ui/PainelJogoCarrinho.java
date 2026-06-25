@@ -3,6 +3,13 @@ package ui;
 import model.Jogo;
 import model.CarrinhoModel;
 import java.math.BigDecimal;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 
 import util.*;
 import service.*;
@@ -27,6 +34,78 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
         precoJogo.setText("R$ " + preco);
         
         lancadoEm.setText("Lançado em: "+ jogo.getDataLancamento());
+        
+        ImageIcon icon = new ImageIcon(
+            jogo.getImagem()
+        );
+        Image img = icon.getImage();
+        Image imgRedimensionada = img.getScaledInstance(
+                180,
+                104,
+                Image.SCALE_SMOOTH
+        );
+        
+        imagemJogo.setIcon(
+            new ImageIcon(imgRedimensionada)
+        );
+        
+        PersonalizarPainel( img);
+    }
+    
+    public void PersonalizarPainel(Image img){
+        Color fundoCard = new Color(24, 34, 48);
+        Color bordaCard = new Color(48, 74, 95);
+        Color textoSecundario = new Color(150, 160, 180);
+        Color verde = new Color(50, 166, 70);
+
+        setBackground(fundoCard);
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 132));
+        setMinimumSize(new Dimension(520, 132));
+        setBorder(
+            javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(bordaCard, 1),
+                javax.swing.BorderFactory.createEmptyBorder(12, 14, 12, 14)
+            )
+        );
+
+        imagemJogo.setPreferredSize(new Dimension(180, 104));
+        imagemJogo.setMinimumSize(new Dimension(180, 104));
+
+        nomeJogo.setForeground(Color.WHITE);
+        nomeJogo.setFont(
+            new Font("Segoe UI", Font.BOLD, 20)
+        );
+        precoJogo.setForeground(
+            verde
+        );
+
+        precoJogo.setFont(
+            new Font("Segoe UI", Font.BOLD, 20)
+        );
+        
+        lancadoEm.setForeground(
+            textoSecundario
+        );
+
+        lancadoEm.setFont(
+            new Font("Segoe UI", Font.PLAIN, 13)
+        );
+        
+        btnRemoverJogo.setText("Remover");
+
+        btnRemoverJogo.setBackground(
+            new Color(32, 48, 64)
+        );
+
+        btnRemoverJogo.setForeground(textoSecundario);
+        btnRemoverJogo.setFont(new Font("Segoe UI", Font.BOLD, 12));
+
+        btnRemoverJogo.setFocusPainted(false);
+
+        btnRemoverJogo.setBorderPainted(false);
+        btnRemoverJogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnRemoverJogo.setMargin(new Insets(6, 14, 6, 14));
+        btnRemoverJogo.setPreferredSize(new Dimension(96, 30));
     }
 
     @SuppressWarnings("unchecked")
@@ -39,14 +118,15 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
         btnRemoverJogo = new javax.swing.JButton();
         lancadoEm = new javax.swing.JLabel();
 
-        imagemJogo.setText("imagme");
+        imagemJogo.setMinimumSize(new java.awt.Dimension(180, 104));
+        imagemJogo.setPreferredSize(new java.awt.Dimension(180, 104));
 
         nomeJogo.setText("nomeJogo");
         nomeJogo.setToolTipText("");
 
         precoJogo.setText("Preço");
 
-        btnRemoverJogo.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        btnRemoverJogo.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnRemoverJogo.setText("Remover");
         btnRemoverJogo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -54,7 +134,7 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
             }
         });
 
-        lancadoEm.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        lancadoEm.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lancadoEm.setForeground(new java.awt.Color(153, 153, 153));
         lancadoEm.setText("jLabel1");
 
@@ -62,32 +142,29 @@ public class PainelJogoCarrinho extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imagemJogo)
-                .addGap(45, 45, 45)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(imagemJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nomeJogo)
                     .addComponent(lancadoEm))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnRemoverJogo)
-                    .addComponent(precoJogo))
-                .addGap(17, 17, 17))
+                    .addComponent(precoJogo)
+                    .addComponent(btnRemoverJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(imagemJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(imagemJogo)
                     .addComponent(nomeJogo)
                     .addComponent(precoJogo))
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lancadoEm)
-                    .addComponent(btnRemoverJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(btnRemoverJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

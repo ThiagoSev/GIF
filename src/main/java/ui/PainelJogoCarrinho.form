@@ -18,16 +18,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="imagemJogo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="nomeJogo" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lancadoEm" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="65" max="32767" attributes="0"/>
+              <Component id="imagemJogo" min="-2" pref="162" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnRemoverJogo" min="-2" max="-2" attributes="0"/>
-                  <Component id="precoJogo" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="lancadoEm" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
+                      <Component id="btnRemoverJogo" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="nomeJogo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="precoJogo" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
           </Group>
@@ -35,19 +38,26 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="imagemJogo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nomeJogo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="precoJogo" alignment="3" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="nomeJogo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="precoJogo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lancadoEm" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRemoverJogo" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="imagemJogo" min="-2" pref="78" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lancadoEm" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnRemoverJogo" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,7 +65,12 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="imagemJogo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="imagme"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[106, 51]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[156, 93]"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="nomeJogo">

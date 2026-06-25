@@ -128,7 +128,7 @@ public class TelaJogos extends javax.swing.JFrame {
     );
 
     Image img = icon.getImage();
-
+    
     Image imgRedimensionada = img.getScaledInstance(
             lblImagem.getWidth(),
             lblImagem.getHeight(),

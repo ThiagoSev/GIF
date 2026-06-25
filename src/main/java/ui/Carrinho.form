@@ -3,6 +3,9 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="42" green="2a" red="16" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -30,15 +33,21 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
-              <Component id="panelCarrinho" min="-2" pref="220" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelCarrinho" min="-2" pref="270" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JScrollPane" name="panelCarrinho">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="42" green="2a" red="16" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
@@ -67,7 +76,7 @@
                               <Component id="valorTotalCarrinho" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="tituloCarrinho" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="329" max="32767" attributes="0"/>
+                                  <EmptySpace pref="324" max="32767" attributes="0"/>
                                   <Component id="pagarCarrinho" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -119,7 +128,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="pagarCarrinho">
           <Properties>
-            <Property name="text" type="java.lang.String" value="pagar"/>
+            <Property name="text" type="java.lang.String" value="Finalizar Compra"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pagarCarrinhoMouseClicked"/>

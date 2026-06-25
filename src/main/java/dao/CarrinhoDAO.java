@@ -68,7 +68,9 @@ public class CarrinhoDAO {
                 jogoAux.setEstaEmPromocao(rs.getBoolean("estaempromocao"));
                 jogoAux.setDataLancamento(rs.getObject("datalancamento", LocalDateTime.class));
                 jogoAux.setIdDistribuidor(rs.getInt("iddistribuidor"));
-                jogoAux.setIdCriador(rs.getInt("idcriador"));
+                jogoAux.setIdCriador(rs.getInt("idcriador"));                
+                jogoAux.setImagem(rs.getString("imagem"));
+
 
                 jogosNoCarrinho.add(jogoAux);
             }
