@@ -1,12 +1,17 @@
 package model;
 
+import java.util.Date;
+
 public class Usuario {
     private int Id;
     private String Nome;
     private String Senha;
+    private String Apelido;
+    private Date DataNascimento;
     private boolean Administrador;
     
-     public Usuario() {
+    public Usuario(){
+        
     }
 
     public Usuario(int Id, String Nome, String Senha, boolean administrador){
@@ -19,6 +24,13 @@ public class Usuario {
     public Usuario(String Nome, String Senha){
         this.Nome = Nome;
         this.Senha = Senha;
+    }
+
+    public Usuario(String Nome, String Senha, String Apelido, Date DataNascimento){
+        this.Nome = Nome;
+        this.Senha = Senha;
+        this.Apelido = Apelido;
+        this.DataNascimento = DataNascimento;
     }
     
     public int getId() {
@@ -51,5 +63,13 @@ public class Usuario {
 
     public void setAdministrador(boolean administrador) {
         this.Administrador = administrador;
+    }
+
+    public String getApelido() {
+        return Apelido;
+    }
+
+    public Date getDataNascimento() {
+        return DataNascimento;
     }
 }

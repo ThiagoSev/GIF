@@ -9,13 +9,16 @@ public class UsuarioService {
 
     public Usuario LogarSistema(String nomeUsuario, String senhaUsuario){
 
-    if ((nomeUsuario == null || nomeUsuario.isEmpty()) ||
-        (senhaUsuario == null || senhaUsuario.isEmpty())) {
-        
-        return null;
+        if ((nomeUsuario == null || nomeUsuario.isEmpty()) ||
+            (senhaUsuario == null || senhaUsuario.isEmpty())) {
+            
+            return null;
+        }
+
+        return usuarioDAO.BuscarUsuario(new Usuario(nomeUsuario, senhaUsuario));
     }
 
-    return usuarioDAO.BuscarUsuario(
-            new Usuario(nomeUsuario, senhaUsuario));
-}
+    public boolean CadastrarUsuario(Usuario usuario) {
+        return usuarioDAO.Cadastrar(usuario);
+    }
 }

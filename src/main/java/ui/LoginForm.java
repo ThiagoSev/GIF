@@ -36,6 +36,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLMsgErro = new javax.swing.JLabel();
         jPSSenhaUsuario = new javax.swing.JPasswordField();
+        btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,6 +44,13 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLogarMouseClicked(evt);
+            }
+        });
+
+        btnCadastrar.setText("Cadastre-se");
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCadastrarMouseClicked(evt);
             }
         });
 
@@ -64,6 +72,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTFNomeUsuario)
                     .addComponent(btnLogar, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(jPSSenhaUsuario))
                 .addContainerGap(125, Short.MAX_VALUE))
@@ -81,6 +90,8 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(jPSSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btnLogar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCadastrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLMsgErro)
                 .addContainerGap(53, Short.MAX_VALUE))
@@ -123,6 +134,10 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLogarMouseClicked
 
+    private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {
+        new CadastroForm().setVisible(true);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -156,5 +171,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPSSenhaUsuario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTFNomeUsuario;
+    private javax.swing.JButton btnCadastrar;
     // End of variables declaration//GEN-END:variables
 }
