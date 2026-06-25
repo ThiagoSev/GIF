@@ -103,7 +103,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                          <EmptySpace pref="11" max="32767" attributes="0"/>
                           <Component id="lblImagem" min="-2" pref="309" max="-2" attributes="0"/>
                           <EmptySpace pref="32" max="32767" attributes="0"/>
                       </Group>
@@ -188,14 +188,20 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="btnInicion" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnLoja" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnBiblioteca" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnUsuario" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnRemover" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="texfPesquisa" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnUsuario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="texfPesquisa" min="-2" pref="97" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnCarrinho" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -205,22 +211,20 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="19" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="texfPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="texfPesquisa" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="btnUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnRemover" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnInicion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnLoja" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBiblioteca" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCarrinho" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnRemover" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblTitulo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Titulo"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="texfPesquisa">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pesquisa"/>
@@ -231,7 +235,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnUsuario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Usuario"/>
+            <Property name="text" type="java.lang.String" value="Conta"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnRemover">
@@ -240,6 +244,38 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnInicion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="GIF"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInicionActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnLoja">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Loja"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLojaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnBiblioteca">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Biblioteca"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBibliotecaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCarrinho">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Carrinho"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCarrinhoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
