@@ -15,6 +15,13 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.File;
+import javax.swing.BorderFactory;
+
+
 
 /**
  *
@@ -23,94 +30,130 @@ import java.awt.Image;
 public class TelaJogos extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaJogos.class.getName());
+    private static final Color FUNDO = new Color(22, 26, 33);
+    private static final Color TOPO = new Color(24, 28, 36);
+    private static final Color PAINEL = new Color(27, 44, 60);
+    private static final Color BORDA = new Color(44, 82, 112);
+    private static final Color VERDE = new Color(59, 185, 86);
+    private static final Color TEXTO_SUAVE = new Color(164, 174, 186);
     private Usuario usuarioLogado;
     private Jogo jogo;
+    private List<Jogo> jogosDaLoja;
 
     /**
      * Creates new form TelaJogos
      */
     public TelaJogos(Usuario usuarioLogado, Jogo jogo) {
         initComponents();
+        lblImagem.setPreferredSize(
+        new Dimension(800, 400));
         setLocationRelativeTo(null);
+        texfPesquisa.addActionListener(e -> pesquisarJogo(texfPesquisa.getText().trim()));
         
         this.usuarioLogado = usuarioLogado;
         this.jogo = jogo;
         personalizarTela();
         exibirJogo(jogo);
+        carregarJogos();
     }
     
-   private void personalizarTela() {
+  private void personalizarTela() {
 
-    // Fundo dos painéis
-    jPanel2.setBackground(new java.awt.Color(32, 34, 37));
-    jPanel4.setBackground(new java.awt.Color(32, 34, 37));
+    getContentPane().setBackground(FUNDO);
 
-    // Título do jogo
-    lblTituloJogo.setFont(
-            new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24)
-    );
-    lblTituloJogo.setForeground(java.awt.Color.WHITE);
+    jPanel2.setBackground(FUNDO);
+    jPanel4.setBackground(TOPO);
 
-    // Descrição
-    txtDescricao.setBackground(
-            new java.awt.Color(47, 49, 54)
-    );
-    txtDescricao.setForeground(java.awt.Color.WHITE);
+    jPanel4.setBorder(BorderFactory.createMatteBorder(
+            0, 0, 1, 0, BORDA));
 
-    // Preço
-    lblPreco.setFont(
-            new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 22)
-    );
-    lblPreco.setForeground(
-            new java.awt.Color(76, 175, 80)
-    );
+    btnInicion.setText("GIF");
+    btnInicion.setForeground(Color.WHITE);
+    btnInicion.setBackground(TOPO);
+    btnInicion.setFont(new Font("Segoe UI", Font.BOLD, 24));
+    btnInicion.setFocusPainted(false);
+    btnInicion.setBorderPainted(false);
+    btnInicion.setContentAreaFilled(true);
+    btnInicion.setOpaque(true);
 
-    // Data de lançamento
-    lbLancamento.setForeground(java.awt.Color.WHITE);
-    lblData.setForeground(
-            new java.awt.Color(180, 180, 180)
-    );
+    lblTituloJogo.setForeground(Color.WHITE);
+    lblTituloJogo.setFont(new Font("Segoe UI", Font.BOLD, 32));
 
-    // Botão comprar
-    btnComprar.setBackground(
-            new java.awt.Color(76, 175, 80)
-    );
-    btnComprar.setForeground(java.awt.Color.WHITE);
+    txtDescricao.setLineWrap(true);
+    txtDescricao.setWrapStyleWord(true);
+    txtDescricao.setEditable(false);
+    txtDescricao.setBackground(PAINEL);
+    txtDescricao.setForeground(Color.WHITE);
+    txtDescricao.setCaretColor(Color.WHITE); // cursor branco
+    txtDescricao.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-    // Botões superiores
-    btnUsuario.setBackground(
-            new java.awt.Color(54, 57, 63)
-    );
-    btnUsuario.setForeground(java.awt.Color.WHITE);
+    lblPreco.setForeground(VERDE);
+    lblPreco.setFont(new Font("Segoe UI", Font.BOLD, 28));
 
-    btnRemover.setBackground(
-            new java.awt.Color(54, 57, 63)
-    );
-    btnRemover.setForeground(java.awt.Color.WHITE);
+    lbLancamento.setForeground(Color.WHITE);
+    lblData.setForeground(TEXTO_SUAVE);
 
-    // Pesquisa
-    texfPesquisa.setBackground(
-            new java.awt.Color(47, 49, 54)
-    );
-    texfPesquisa.setForeground(java.awt.Color.WHITE);
+    btnComprar.setBackground(VERDE);
+    btnComprar.setForeground(Color.WHITE);
+    btnComprar.setFocusPainted(false);
 
-    // Imagem
+    btnUsuario.setBackground(TOPO);
+    btnUsuario.setForeground(Color.WHITE);
+    btnUsuario.setFocusPainted(false);
+    btnUsuario.setBorderPainted(false);
+    btnUsuario.setContentAreaFilled(true);
+    btnUsuario.setOpaque(true);
+
+    btnRemover.setBackground(PAINEL);
+    btnRemover.setForeground(Color.WHITE);
+    btnRemover.setFocusPainted(false);
+    btnRemover.setBorderPainted(false);
+    btnRemover.setContentAreaFilled(true);
+    btnRemover.setOpaque(true);
+    btnRemover.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+    
+    btnLoja.setBackground(TOPO);
+    btnLoja.setForeground(Color.WHITE);
+    btnLoja.setFocusPainted(false);
+    btnLoja.setBorderPainted(false);
+    btnLoja.setContentAreaFilled(true);
+    btnLoja.setOpaque(true);
+    
+    btnBiblioteca.setBackground(TOPO);
+    btnBiblioteca.setForeground(Color.WHITE);
+    btnBiblioteca.setFocusPainted(false);
+    btnBiblioteca.setBorderPainted(false);
+    btnBiblioteca.setContentAreaFilled(true);
+    btnBiblioteca.setOpaque(true);
+    
+    btnCarrinho.setBackground(PAINEL);
+    btnCarrinho.setForeground(Color.WHITE);
+    btnCarrinho.setFocusPainted(false);
+    btnCarrinho.setBorderPainted(false);
+    btnCarrinho.setContentAreaFilled(true);
+    btnCarrinho.setOpaque(true);
+    btnCarrinho.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+    
+
+    texfPesquisa.setBackground(PAINEL);
+    texfPesquisa.setForeground(Color.WHITE);
+    texfPesquisa.setCaretColor(Color.WHITE); 
+    texfPesquisa.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
     lblImagem.setBorder(
-            javax.swing.BorderFactory.createLineBorder(
-                    new java.awt.Color(80, 80, 80),
-                    2
-            )
+            BorderFactory.createLineBorder(BORDA, 2)
     );
-    }
+}
 
     
     private void exibirJogo(Jogo jogo) {
         
-    lblTitulo.setText("GIF");
     lblTituloJogo.setText(jogo.getTitulo());
 
-    txtDescricao.setText(
-            jogo.getDescricao()
+   txtDescricao.setText(
+    jogo.getDescricao() != null
+        ? jogo.getDescricao()
+        : "Sem descrição."
     );
     
     DateTimeFormatter formato =
@@ -119,9 +162,8 @@ public class TelaJogos extends javax.swing.JFrame {
     lblData.setText(
             jogo.getDataLancamento().format(formato)
     );
-
     lblPreco.setText(
-            "R$ " + jogo.getPrecoPadrao()
+        "R$ " + jogo.getPrecoPadrao()
     );
     ImageIcon icon = new ImageIcon(
             jogo.getImagem()
@@ -139,6 +181,68 @@ public class TelaJogos extends javax.swing.JFrame {
             new ImageIcon(imgRedimensionada)
     );
 }
+    private boolean estaVazio(String valor) {
+        return valor == null || valor.trim().isEmpty();
+    }
+    
+    private String caminhoImagem(String nomeImagem) {
+        return new File("imagens/jogos/" + nomeImagem).getAbsolutePath();
+    }
+    
+    private void pesquisarJogo(String termo) {
+        if (estaVazio(termo) || termo.equalsIgnoreCase("Buscar jogos...")) {
+            return;
+        }
+
+        for (Jogo jogo : jogosDaLoja) {
+            if (jogo.getTitulo().toLowerCase().contains(termo.toLowerCase())) {
+                abrirJogo(jogo);
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Nenhum jogo encontrado para: " + termo);
+    }
+    
+      private void abrirJogo(Jogo jogo) {
+        if (usuarioLogado == null) {
+            JOptionPane.showMessageDialog(this, "Faca login para acessar os jogos.");
+            return;
+        }
+        dispose();
+        new TelaJogos(usuarioLogado, completarJogo(jogo)).setVisible(true);
+    }
+     
+      private Jogo completarJogo(Jogo jogo) {
+        if (estaVazio(jogo.getDescricao())) {
+            jogo.setDescricao("Explore uma experiencia completa na loja GIF, com progresso, desafios e compra integrada ao carrinho.");
+        }
+        if (jogo.getPrecoPadrao() == null) {
+            jogo.setPrecoPadrao(new BigDecimal("49.90"));
+        }
+        if (jogo.getDataLancamento() == null) {
+            jogo.setDataLancamento(LocalDateTime.now());
+        }
+        if (estaVazio(jogo.getImagem()) || !new File(jogo.getImagem()).exists()) {
+            jogo.setImagem(caminhoImagem("stardewValley.jpg"));
+        }
+        return jogo;
+    }
+       private void carregarJogos() {
+        jogosDaLoja = new ArrayList<>();
+
+        try {
+            List<Jogo> jogosBanco = new JogoDAO().listarJogos();
+            for (Jogo jogoResumo : jogosBanco) {
+                Jogo jogoCompleto = new JogoDAO().buscarPorId(jogoResumo.getId());
+                if (jogoCompleto != null) {
+                    jogosDaLoja.add(completarJogo(jogoCompleto));
+                }
+            }
+        } catch (Exception ex) {
+            jogosDaLoja.clear();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -154,10 +258,13 @@ public class TelaJogos extends javax.swing.JFrame {
         btnComprar = new javax.swing.JButton();
         lblData = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JLabel();
         texfPesquisa = new javax.swing.JTextField();
         btnUsuario = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
+        btnInicion = new javax.swing.JButton();
+        btnLoja = new javax.swing.JButton();
+        btnBiblioteca = new javax.swing.JButton();
+        btnCarrinho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(23, 26, 33));
@@ -221,7 +328,7 @@ public class TelaJogos extends javax.swing.JFrame {
                             .addComponent(lblData))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(14, Short.MAX_VALUE)
+                        .addContainerGap(11, Short.MAX_VALUE)
                         .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)))
                 .addGap(16, 16, 16)
@@ -233,29 +340,45 @@ public class TelaJogos extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblTitulo.setText("Titulo");
-
         texfPesquisa.setText("Pesquisa");
         texfPesquisa.addActionListener(this::texfPesquisaActionPerformed);
 
-        btnUsuario.setText("Usuario");
+        btnUsuario.setText("Conta");
 
         btnRemover.setText("Excluir");
         btnRemover.addActionListener(this::btnRemoverActionPerformed);
+
+        btnInicion.setText("GIF");
+        btnInicion.addActionListener(this::btnInicionActionPerformed);
+
+        btnLoja.setText("Loja");
+        btnLoja.addActionListener(this::btnLojaActionPerformed);
+
+        btnBiblioteca.setText("Biblioteca");
+        btnBiblioteca.addActionListener(this::btnBibliotecaActionPerformed);
+
+        btnCarrinho.setText("Carrinho");
+        btnCarrinho.addActionListener(this::btnCarrinhoActionPerformed);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lblTitulo)
+                .addGap(17, 17, 17)
+                .addComponent(btnInicion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLoja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBiblioteca)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRemover)
-                .addGap(18, 18, 18)
-                .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCarrinho)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -263,11 +386,14 @@ public class TelaJogos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitulo)
-                    .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuario)
-                    .addComponent(btnRemover))
-                .addGap(14, 14, 14))
+                    .addComponent(btnInicion)
+                    .addComponent(btnLoja)
+                    .addComponent(btnBiblioteca)
+                    .addComponent(btnCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -342,6 +468,38 @@ public class TelaJogos extends javax.swing.JFrame {
         ).setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
 
+    private void btnInicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicionActionPerformed
+  dispose();
+        new Inicio().setVisible(true);
+    }//GEN-LAST:event_btnInicionActionPerformed
+
+    private void btnLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLojaActionPerformed
+    dispose();
+        new Inicio().setVisible(true);
+    }//GEN-LAST:event_btnLojaActionPerformed
+
+    private void btnBibliotecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBibliotecaActionPerformed
+        dispose();
+        new Biblioteca(usuarioLogado).setVisible(true);
+    }//GEN-LAST:event_btnBibliotecaActionPerformed
+
+    private void btnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinhoActionPerformed
+     CarrinhoService service = new CarrinhoService();
+     
+        List<Jogo> jogos =
+                service.BuscarJogosCarrinho(usuarioLogado);
+
+        CarrinhoModel carrinho =
+                service.BuscarCarrinho(usuarioLogado);
+
+        this.dispose();
+
+        new Carrinho(
+                jogos,
+                carrinho
+        ).setVisible(true);
+    }//GEN-LAST:event_btnCarrinhoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -349,7 +507,11 @@ public class TelaJogos extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBiblioteca;
+    private javax.swing.JButton btnCarrinho;
     private javax.swing.JButton btnComprar;
+    private javax.swing.JButton btnInicion;
+    private javax.swing.JButton btnLoja;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnUsuario;
     private javax.swing.JPanel jPanel2;
@@ -359,7 +521,6 @@ public class TelaJogos extends javax.swing.JFrame {
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblImagem;
     private javax.swing.JLabel lblPreco;
-    private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloJogo;
     private javax.swing.JTextField texfPesquisa;
     private javax.swing.JTextArea txtDescricao;
