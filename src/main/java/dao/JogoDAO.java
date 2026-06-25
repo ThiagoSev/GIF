@@ -158,4 +158,45 @@ public class JogoDAO {
 
     return null;
 }
+    
+    public List<Jogo> listarJogosDoUsuario(int idUsuario) {
+    List<Jogo> jogosDoUsuario = new ArrayList<>();
+    
+    String sql = """
+        SELECT j.* FROM jogo j
+        JOIN bibliotecajogos bj ON j.id = bj.idjogo
+        WHERE bj.iddono = ?
+        """;
+
+    try (
+        Connection conn = Conexao.obterConexao();
+        PreparedStatement stmt = conn.prepareStatement(sql)
+    ) {
+
+        stmt.setInt(1, idUsuario);
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Jogo jogo = new Jogo();
+                jogo.setId(rs.getInt("id"));
+                jogo.setTitulo(rs.getString("titulo"));
+                jogo.setSubtitulo(rs.getString("subtitulo"));
+                jogo.setDescricao(rs.getString("descricao"));
+                jogo.setPrecoPadrao(rs.getBigDecimal("precopadrao"));
+                jogo.setImagem(rs.getString("imagem"));
+                
+                Timestamp timestamp = rs.getTimestamp("datalancamento");
+                if (timestamp != null) {
+                    jogo.setDataLancamento(timestamp.toLocalDateTime());
+                }
+
+                jogosDoUsuario.add(jogo);
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Erro ao listar jogos do usuário: " + e.getMessage());
+    }
+
+    return jogosDoUsuario;
+}
 }
