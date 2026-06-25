@@ -185,7 +185,7 @@ public class Inicio extends JFrame {
         navegacao.add(Box.createHorizontalStrut(28));
         navegacao.add(criarLinkTopo("Loja", true, () -> vitrinePanel.getParent().revalidate()));
         navegacao.add(Box.createHorizontalStrut(24));
-        navegacao.add(criarLinkTopo("Biblioteca", false, this::abrirPrimeiroJogo));
+        navegacao.add(criarLinkTopo("Biblioteca", false, this::abrirBiblioteca));
         navegacao.add(Box.createHorizontalStrut(24));
         navegacao.add(criarLinkTopo("Conta", false, () -> JOptionPane.showMessageDialog(this, nomeUsuario())));
 
@@ -501,6 +501,16 @@ public class Inicio extends JFrame {
 
         dispose();
         new Carrinho(jogos, carrinhoDoUsuario).setVisible(true);
+    }
+    
+    private void abrirBiblioteca() {
+        if (usuarioLogado == null) {
+            JOptionPane.showMessageDialog(this, "Faca login para abrir a biblioteca.");
+            return;
+        }
+        
+        dispose();
+        new Biblioteca(usuarioLogado).setVisible(true);
     }
 
     private void abrirCadastroJogo() {
