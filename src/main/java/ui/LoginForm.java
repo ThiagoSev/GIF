@@ -7,6 +7,15 @@ package ui;
 import service.*;
 import model.*;
 import util.Sessao;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class LoginForm extends javax.swing.JFrame {
     
@@ -17,7 +26,83 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        PersonalizarTela();
+        pack();
         setLocationRelativeTo(null);
+    }
+
+    public void PersonalizarTela() {
+        Color fundo = new Color(18, 24, 34);
+        Color superficie = new Color(21, 31, 44);
+        Color borda = new Color(48, 74, 95);
+        Color textoSecundario = new Color(150, 160, 180);
+        Color verde = new Color(50, 166, 70);
+
+        getContentPane().setBackground(fundo);
+        setMinimumSize(new Dimension(760, 520));
+        setPreferredSize(new Dimension(760, 520));
+        setTitle("GIF - Login");
+
+        jPanel1.setBackground(fundo);
+        jPanel1.setBorder(BorderFactory.createEmptyBorder(40, 56, 40, 56));
+
+        tituloLogin.setForeground(Color.WHITE);
+        tituloLogin.setFont(new Font("Segoe UI", Font.BOLD, 32));
+
+        subtituloLogin.setForeground(textoSecundario);
+        subtituloLogin.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+        personalizarLabelCampo(jLabel1);
+        personalizarLabelCampo(jLabel2);
+        personalizarCampo(jTFNomeUsuario, superficie, borda);
+        personalizarCampo(jPSSenhaUsuario, superficie, borda);
+        personalizarBotao(btnLogar, verde, Color.WHITE, new Dimension(280, 42));
+        personalizarBotao(btnCadastrar, new Color(32, 48, 64), textoSecundario, new Dimension(280, 38));
+
+        jLMsgErro.setForeground(new Color(255, 105, 105));
+        jLMsgErro.setFont(new Font("Segoe UI", Font.BOLD, 12));
+    }
+
+    private void personalizarLabelCampo(javax.swing.JLabel label) {
+        label.setForeground(new Color(150, 160, 180));
+        label.setFont(new Font("Segoe UI", Font.BOLD, 13));
+    }
+
+    private void personalizarCampo(JTextField campo, Color fundo, Color borda) {
+        campo.setBackground(fundo);
+        campo.setForeground(Color.WHITE);
+        campo.setCaretColor(Color.WHITE);
+        campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        campo.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borda, 1),
+            BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        ));
+        campo.setPreferredSize(new Dimension(280, 40));
+    }
+
+    private void personalizarCampo(JPasswordField campo, Color fundo, Color borda) {
+        campo.setBackground(fundo);
+        campo.setForeground(Color.WHITE);
+        campo.setCaretColor(Color.WHITE);
+        campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        campo.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borda, 1),
+            BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        ));
+        campo.setPreferredSize(new Dimension(280, 40));
+    }
+
+    private void personalizarBotao(JButton botao, Color fundo, Color texto, Dimension tamanho) {
+        botao.setBackground(fundo);
+        botao.setForeground(texto);
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        botao.setFocusPainted(false);
+        botao.setBorderPainted(false);
+        botao.setContentAreaFilled(true);
+        botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        botao.setMargin(new Insets(8, 18, 8, 18));
+        botao.setPreferredSize(tamanho);
+        botao.setMinimumSize(tamanho);
     }
 
     /**
@@ -37,8 +122,11 @@ public class LoginForm extends javax.swing.JFrame {
         jLMsgErro = new javax.swing.JLabel();
         jPSSenhaUsuario = new javax.swing.JPasswordField();
         btnCadastrar = new javax.swing.JButton();
+        tituloLogin = new javax.swing.JLabel();
+        subtituloLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(18, 24, 34));
 
         btnLogar.setText("Logar");
         btnLogar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -61,40 +149,50 @@ public class LoginForm extends javax.swing.JFrame {
         jLMsgErro.setBackground(new java.awt.Color(255, 51, 51));
         jLMsgErro.setForeground(new java.awt.Color(255, 0, 0));
 
+        tituloLogin.setText("Entrar na GIF");
+
+        subtituloLogin.setText("Acesse sua loja e biblioteca de jogos.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(126, 126, 126)
+                .addContainerGap(185, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tituloLogin)
+                    .addComponent(subtituloLogin)
                     .addComponent(jLMsgErro)
                     .addComponent(jLabel1)
                     .addComponent(jTFNomeUsuario)
-                    .addComponent(btnLogar, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btnLogar, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(jPSSenhaUsuario))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addContainerGap(92, Short.MAX_VALUE)
+                .addComponent(tituloLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(subtituloLogin)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPSSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnLogar)
+                .addComponent(jPSSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCadastrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(jLMsgErro)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -135,6 +233,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogarMouseClicked
 
     private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {
+        this.dispose();
         new CadastroForm().setVisible(true);
     }
 
@@ -172,5 +271,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTFNomeUsuario;
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JLabel subtituloLogin;
+    private javax.swing.JLabel tituloLogin;
     // End of variables declaration//GEN-END:variables
 }

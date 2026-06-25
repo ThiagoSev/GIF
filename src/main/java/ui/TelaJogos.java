@@ -15,6 +15,15 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -31,76 +40,102 @@ public class TelaJogos extends javax.swing.JFrame {
      */
     public TelaJogos(Usuario usuarioLogado, Jogo jogo) {
         initComponents();
-        setLocationRelativeTo(null);
         
         this.usuarioLogado = usuarioLogado;
         this.jogo = jogo;
         personalizarTela();
         exibirJogo(jogo);
+        pack();
+        setLocationRelativeTo(null);
     }
     
    private void personalizarTela() {
 
-    // Fundo dos painéis
-    jPanel2.setBackground(new java.awt.Color(32, 34, 37));
-    jPanel4.setBackground(new java.awt.Color(32, 34, 37));
+    Color fundo = new Color(18, 24, 34);
+    Color superficie = new Color(21, 31, 44);
+    Color card = new Color(24, 34, 48);
+    Color borda = new Color(48, 74, 95);
+    Color textoSecundario = new Color(150, 160, 180);
+    Color verde = new Color(50, 166, 70);
 
-    // Título do jogo
-    lblTituloJogo.setFont(
-            new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24)
-    );
-    lblTituloJogo.setForeground(java.awt.Color.WHITE);
+    getContentPane().setBackground(fundo);
+    setMinimumSize(new Dimension(980, 620));
+    setPreferredSize(new Dimension(1080, 660));
+    setTitle("GIF - Jogo");
 
-    // Descrição
-    txtDescricao.setBackground(
-            new java.awt.Color(47, 49, 54)
-    );
-    txtDescricao.setForeground(java.awt.Color.WHITE);
+    jPanel2.setBackground(superficie);
+    jPanel2.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borda, 1),
+            BorderFactory.createEmptyBorder(24, 28, 24, 28)
+    ));
 
-    // Preço
-    lblPreco.setFont(
-            new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 22)
-    );
-    lblPreco.setForeground(
-            new java.awt.Color(76, 175, 80)
-    );
+    jPanel4.setBackground(fundo);
+    jPanel4.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, borda));
 
-    // Data de lançamento
-    lbLancamento.setForeground(java.awt.Color.WHITE);
-    lblData.setForeground(
-            new java.awt.Color(180, 180, 180)
-    );
+    lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
+    lblTitulo.setForeground(verde);
+    lblTitulo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    lblTitulo.setToolTipText("Voltar ao inicio");
 
-    // Botão comprar
-    btnComprar.setBackground(
-            new java.awt.Color(76, 175, 80)
-    );
-    btnComprar.setForeground(java.awt.Color.WHITE);
+    lblTituloJogo.setFont(new Font("Segoe UI", Font.BOLD, 32));
+    lblTituloJogo.setForeground(Color.WHITE);
 
-    // Botões superiores
-    btnUsuario.setBackground(
-            new java.awt.Color(54, 57, 63)
-    );
-    btnUsuario.setForeground(java.awt.Color.WHITE);
+    personalizarAreaTexto(txtDescricao, card, borda, textoSecundario);
+    jScrollPane1.setBorder(BorderFactory.createLineBorder(borda, 1));
+    jScrollPane1.getViewport().setBackground(card);
 
-    btnRemover.setBackground(
-            new java.awt.Color(54, 57, 63)
-    );
-    btnRemover.setForeground(java.awt.Color.WHITE);
+    lblPreco.setFont(new Font("Segoe UI", Font.BOLD, 26));
+    lblPreco.setForeground(verde);
 
-    // Pesquisa
-    texfPesquisa.setBackground(
-            new java.awt.Color(47, 49, 54)
-    );
-    texfPesquisa.setForeground(java.awt.Color.WHITE);
+    lbLancamento.setFont(new Font("Segoe UI", Font.BOLD, 13));
+    lbLancamento.setForeground(Color.WHITE);
+    lblData.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+    lblData.setForeground(textoSecundario);
 
-    // Imagem
-    lblImagem.setBorder(
-            javax.swing.BorderFactory.createLineBorder(
-                    new java.awt.Color(80, 80, 80),
-                    2
-            )
-    );
+    personalizarBotao(btnComprar, verde, Color.WHITE, new Dimension(170, 42));
+    personalizarBotao(btnUsuario, new Color(32, 48, 64), textoSecundario, new Dimension(96, 34));
+    personalizarBotao(btnRemover, new Color(32, 48, 64), textoSecundario, new Dimension(96, 34));
+
+    personalizarCampoPesquisa(texfPesquisa, superficie, borda, textoSecundario);
+
+    lblImagem.setBorder(BorderFactory.createLineBorder(borda, 1));
+    lblImagem.setOpaque(true);
+    lblImagem.setBackground(card);
+    }
+
+    private void personalizarBotao(JButton botao, Color fundo, Color texto, Dimension tamanho) {
+        botao.setBackground(fundo);
+        botao.setForeground(texto);
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        botao.setFocusPainted(false);
+        botao.setBorderPainted(false);
+        botao.setContentAreaFilled(true);
+        botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        botao.setMargin(new Insets(8, 18, 8, 18));
+        botao.setPreferredSize(tamanho);
+        botao.setMinimumSize(tamanho);
+    }
+
+    private void personalizarCampoPesquisa(JTextField campo, Color fundo, Color borda, Color texto) {
+        campo.setBackground(fundo);
+        campo.setForeground(texto);
+        campo.setCaretColor(Color.WHITE);
+        campo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        campo.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borda, 1),
+            BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        ));
+        campo.setPreferredSize(new Dimension(220, 36));
+    }
+
+    private void personalizarAreaTexto(JTextArea area, Color fundo, Color borda, Color texto) {
+        area.setBackground(fundo);
+        area.setForeground(texto);
+        area.setCaretColor(Color.WHITE);
+        area.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        area.setBorder(BorderFactory.createEmptyBorder(12, 14, 12, 14));
     }
 
     
@@ -160,12 +195,12 @@ public class TelaJogos extends javax.swing.JFrame {
         btnRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(23, 26, 33));
+        setBackground(new java.awt.Color(18, 24, 34));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(48, 74, 95)));
 
         lblImagem.setToolTipText("");
-        lblImagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(48, 74, 95)));
 
         lblTituloJogo.setText("Titulo do jogo");
 
@@ -188,52 +223,51 @@ public class TelaJogos extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lblImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(lblImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbLancamento)
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
                         .addComponent(lblData))
-                    .addComponent(lblTituloJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+                    .addComponent(lblTituloJogo, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
                 .addComponent(lblPreco)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnComprar)
-                .addGap(64, 64, 64))
+                .addGap(4, 4, 4))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addComponent(lblTituloJogo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbLancamento)
                             .addComponent(lblData))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(14, Short.MAX_VALUE)
-                        .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)))
-                .addGap(16, 16, 16)
+                        .addComponent(lblImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnComprar))
-                .addGap(43, 43, 43))
+                    .addComponent(lblPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(48, 74, 95)));
 
         lblTitulo.setText("Titulo");
+        lblTitulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTituloMouseClicked(evt);
+            }
+        });
 
         texfPesquisa.setText("Pesquisa");
         texfPesquisa.addActionListener(this::texfPesquisaActionPerformed);
@@ -248,26 +282,26 @@ public class TelaJogos extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(56, 56, 56)
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRemover)
                 .addGap(18, 18, 18)
-                .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnUsuario)
-                .addContainerGap())
+                .addGap(56, 56, 56))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitulo)
-                    .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUsuario)
-                    .addComponent(btnRemover))
-                .addGap(14, 14, 14))
+                    .addComponent(texfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,17 +312,17 @@ public class TelaJogos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(28, 28, 28)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -297,6 +331,11 @@ public class TelaJogos extends javax.swing.JFrame {
     private void texfPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texfPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_texfPesquisaActionPerformed
+
+    private void lblTituloMouseClicked(java.awt.event.MouseEvent evt) {
+        this.dispose();
+        new Inicio().setVisible(true);
+    }
                                          
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed

@@ -217,6 +217,9 @@ public class CadastroForm extends JFrame {
         Usuario usuario = new Usuario(nome, senha, apelido, dataNascimento);
         boolean cadastrado = new UsuarioService().CadastrarUsuario(usuario);
         mensagem(cadastrado ? "Cadastro realizado com sucesso!" : "Nao foi possivel realizar o cadastro.", cadastrado);
+    
+        this.dispose();
+        new LoginForm().setVisible(true);
     }
 
     private Date converterData(String texto) {
