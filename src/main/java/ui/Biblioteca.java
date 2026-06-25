@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.*;
 
+import util.*;
+
 public class Biblioteca extends JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Biblioteca.class.getName());
@@ -29,8 +31,9 @@ public class Biblioteca extends JFrame {
     private JButton btnJogar;
     private JPanel painelDetalhes;
 
-    public Biblioteca(Usuario usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
+    public Biblioteca() {
+        Sessao sessao = new Sessao();
+        this.usuarioLogado = sessao.getUsuarioLogado();
         
         configurarJanela();
         construirTela();
@@ -311,7 +314,7 @@ public class Biblioteca extends JFrame {
         EventQueue.invokeLater(() -> {
             Usuario usuarioTeste = new Usuario();
             usuarioTeste.setNome("Jogador 1");
-            new Biblioteca(usuarioTeste).setVisible(true);
+            new Biblioteca().setVisible(true);
         });
     }
 

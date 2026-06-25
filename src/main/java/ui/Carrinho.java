@@ -1,6 +1,7 @@
 package ui;
 
 import model.Jogo;
+import model.Usuario;
 import model.CarrinhoModel;
 import java.util.List;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ import javax.swing.JScrollBar;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import service.CarrinhoService;
+import util.Sessao;
+
 
 public class Carrinho extends javax.swing.JFrame {
     
@@ -25,11 +29,14 @@ public class Carrinho extends javax.swing.JFrame {
 
     private List<Jogo> itensCarrinho;
     private CarrinhoModel carrinho;
-    
+    Usuario usuariologado;
     public Carrinho(List<Jogo> itensCarrinho, CarrinhoModel carrinho) {
         initComponents();
         setLocationRelativeTo(null);
+        Sessao sessao = new Sessao();
         
+        usuariologado = sessao.getUsuarioLogado();
+
         this.itensCarrinho = itensCarrinho;
         this.carrinho = carrinho;
         
@@ -277,15 +284,17 @@ public class Carrinho extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTelaInicioMouseClicked
 
     private void pagarCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pagarCarrinhoMouseClicked
-        this.dispose();
         
-        //abre a tela de pagamento
-        new Pagamento(carrinho).setVisible(true);
-    }//GEN-LAST:event_pagarCarrinhoMouseClicked
+        //Paga o carrinho
+        CarrinhoService service = new CarrinhoService();
+        service.ComprarCarrinho(carrinho, usuariologado, itensCarrinho);
+        
+        this.dispose();
+        //abre a tela de login
+        new Biblioteca().setVisible(true);
+    }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

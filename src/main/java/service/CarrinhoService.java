@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import dao.BibliotecaDAO;
 import dao.CarrinhoDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -30,7 +31,8 @@ public class CarrinhoService {
         return carrinhoDAO.BuscarJogosCarrinho(usuario);
     }
     
-    public boolean ComprarCarrinho(CarrinhoModel carrinho){
+    public boolean ComprarCarrinho(CarrinhoModel carrinho, Usuario usuario, List<Jogo> listaJogos){
+
         try(Connection conn = Conexao.obterConexao()){
             conn.setAutoCommit(false);
             try{
@@ -38,7 +40,8 @@ public class CarrinhoService {
                 carrinhoDAO.RemoverTodosJogosCarrinho(carrinho, conn);
 
                 //adiciona os itens na biblioteca
-                
+                BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
+                bibliotecaDAO.inserirJogosBiblioteca(listaJogos, usuario);
                 
                 conn.commit();
                 return true;

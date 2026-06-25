@@ -58,6 +58,7 @@ public class JogoDAO {
             return false;
         }
     }
+        
     public void remover(int idJogo, Usuario usuario) {
 
         if (!usuario.isAdministrador()) {

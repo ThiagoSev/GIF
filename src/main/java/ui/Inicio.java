@@ -510,7 +510,7 @@ public class Inicio extends JFrame {
         }
         
         dispose();
-        new Biblioteca(usuarioLogado).setVisible(true);
+        new Biblioteca().setVisible(true);
     }
 
     private void abrirCadastroJogo() {

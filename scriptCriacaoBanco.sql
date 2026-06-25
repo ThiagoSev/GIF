@@ -73,8 +73,9 @@ CREATE TABLE bibliotecajogos(
     iddono int,
     idjogo int,
     dataaquisicao timestamp without time zone,
-    tempodejogo timestamp without time zone,
-    percentualconquistas numeric(3,2) DEFAULT 0
+    tempodejogo bigint DEFAULT 0,
+    percentualconquistas numeric(3,2) DEFAULT 0,
+    PRIMARY KEY(iddono, idjogo)
 );
 
 CREATE TABLE carrinho(
