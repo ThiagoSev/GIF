@@ -183,13 +183,13 @@ public class Biblioteca extends JFrame {
         return painelDetalhes;
     }
 
-private void carregarJogos() {
+    private void carregarJogos() {
         painelListaJogos.removeAll(); 
 
         JogoDAO jogoDAO = new JogoDAO();
-        List<Jogo> jogos = jogoDAO.listarJogos();
+        List<Jogo> jogos = jogoDAO.listarJogosDoUsuario(usuarioLogado.getId());
 
-       
+        
         if (jogos == null || jogos.isEmpty()) {
             jogos = criarJogosDeExemplo();
         }
