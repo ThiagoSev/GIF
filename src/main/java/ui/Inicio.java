@@ -138,7 +138,7 @@ public class Inicio extends JFrame {
     }
 
     private String caminhoImagem(String nomeImagem) {
-        return new File("imagens/jogos/" + nomeImagem).getAbsolutePath();
+        return new File("GIF-main/imagens/jogos/" + nomeImagem).getAbsolutePath();
     }
 
     private void construirTela() {
@@ -187,7 +187,7 @@ public class Inicio extends JFrame {
         navegacao.add(Box.createHorizontalStrut(24));
         navegacao.add(criarLinkTopo("Biblioteca", false, this::abrirBiblioteca));
         navegacao.add(Box.createHorizontalStrut(24));
-        navegacao.add(criarLinkTopo("Conta", false, () -> JOptionPane.showMessageDialog(this, nomeUsuario())));
+        navegacao.add(criarLinkTopo("Conta", false, this::abrirConta));
 
         JPanel acoes = new JPanel();
         acoes.setOpaque(false);
@@ -512,7 +512,16 @@ public class Inicio extends JFrame {
         dispose();
         new Biblioteca().setVisible(true);
     }
-
+    
+    private void abrirConta() {
+        if (usuarioLogado == null) {
+            JOptionPane.showMessageDialog(this, "Faca login para abrir a biblioteca.");
+            return;
+        }
+        
+        dispose();
+        new Conta().setVisible(true);
+    }
     private void abrirCadastroJogo() {
         String titulo = JOptionPane.showInputDialog(this, "Titulo");
         if (estaVazio(titulo)) {

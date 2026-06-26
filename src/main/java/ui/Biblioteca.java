@@ -84,7 +84,7 @@ public class Biblioteca extends JFrame {
         navegacao.add(Box.createHorizontalStrut(24));
         navegacao.add(criarLinkTopo("Biblioteca", true, () -> {}));
         navegacao.add(Box.createHorizontalStrut(24));
-        navegacao.add(criarLinkTopo("Conta", false, () -> JOptionPane.showMessageDialog(this, "Conta: " + (usuarioLogado != null ? usuarioLogado.getNome() : "Deslogado"))));
+        navegacao.add(criarLinkTopo("Conta", false, () -> abrirConta()));
 
         barra.add(navegacao, BorderLayout.WEST);
         return barra;
@@ -297,6 +297,11 @@ public class Biblioteca extends JFrame {
     private void abrirLoja() {
         dispose();
         new Inicio().setVisible(true); 
+    }
+    
+    private void abrirConta() {
+        dispose();
+        new Conta().setVisible(true); 
     }
 
     public static void main(String args[]) {
